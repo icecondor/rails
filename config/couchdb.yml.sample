@@ -1,0 +1,10 @@
+development:
+  protocol: 'http'
+  host: localhost
+  port: 5984
+  prefix: icecondor
+  #suffix: text
+  #username: test
+  #password: user
+
+

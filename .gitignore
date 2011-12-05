@@ -17,3 +17,5 @@
 /bin
 /gems
 Gemfile.lock
+
+config/couchdb.yml
