@@ -1,15 +1,21 @@
 var map, bounds;
 var tracked = {};
 
-$(mapstart);
-$(initial_tracked)
-$(iostart);
+$(function() {
+    mapstart();
+    setup_initial_tracked();
+    iostart();
+  });
 
 function iostart() {
+  console.log("iostart")
   var socketio = io.connect();
-  socketio.emit('following', { type: 'follow', username: 'iss' });
 
-  //socketio.emit('following', { type: 'follow', username: '<%=ary.last.user.username%>' });
+  // following
+  socketio.emit('following', { type: 'follow', username: 'iss' });
+  initial_tracked.forEach(function(location) {
+    socketio.emit('following', { type: 'follow', username: location.username});
+  })
 
   socketio.on('update', function(data) {
     console.log(data)
@@ -26,13 +32,15 @@ function iostart() {
   })
 }
 
-function initial_tracked() {
+function setup_initial_tracked() {
+  console.log("setup initial tracked")
   initial_tracked.forEach(function(location) {
     add_user(location.username, location.position)
   })
 }
 
 function mapstart() {
+  console.log("mapstart")
   bounds = new google.maps.LatLngBounds();
   var mapOptions = {
     zoom: 14,
@@ -45,9 +53,11 @@ function mapstart() {
 
 function add_user(username, initial_position) {
   tracked[username] = make_marker(initial_position);
-  $('#trackedlist').append($("#trackedUserTemplate").render({
-    MarkerImage:"none", UserName: username, TimeAgo: "long"
-  }));
+  var fields = {
+    MarkerImage:"none", UserName: username, TimeAgo: initial_position.date
+  };
+  console.log(fields)
+  $('#trackedlist').append($("#trackedUserTemplate").render(fields));
 }
 
 function make_marker(position) {
