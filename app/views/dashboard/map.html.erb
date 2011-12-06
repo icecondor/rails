@@ -21,11 +21,11 @@
     <p id="publicupdates">
       <span id="titlelist">Recent Public Updates</span>
     <table id="trackedlist">
-    <% @locations.each do |ary| %>
+    <% @locations.keys.each do |username| %>
       <tr>
         <td><%= image_tag "/images/gmaps/mm_20_red.png" %></td>
-        <td><%= link_to ary.last.user.username, "/locations.html?id=#{ary.last.user.openidentities.first.url}" %></td>
-        <td> <%= time_ago_in_words(ary.first.timestamp) %> ago </td>
+        <td><%= link_to username, "/#{username}" %></td>
+        <td><%= time_ago_in_words(@locations[username].first.date||Time.at(0)) %> ago </td>
       </tr>
     <% end %>
     </table>
