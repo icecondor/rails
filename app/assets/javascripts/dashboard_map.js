@@ -28,7 +28,7 @@ function iostart() {
 
 function initial_tracked() {
   initial_tracked.forEach(function(location) {
-    add_user(location.username, location.postition)
+    add_user(location.username, location.position)
   })
 }
 
@@ -45,7 +45,7 @@ function mapstart() {
 
 function add_user(username, initial_position) {
   tracked[username] = make_marker(initial_position);
-  $('#trackedlist').insert($("#trackedUserTemplate").render({
+  $('#trackedlist').append($("#trackedUserTemplate").render({
     MarkerImage:"none", UserName: username, TimeAgo: "long"
   }));
 }
