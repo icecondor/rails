@@ -4,6 +4,11 @@
   <%= javascript_include_tag "dashboard_map.js" %>
 <% end %>
 
+<!-- initial data -->
+<script>
+var initial_tracked = <%=raw @locations.to_json %>;
+</script>
+
 <div class="mapfloatheading">
   <div class="mapfloatcontent">
     <p>
@@ -21,13 +26,6 @@
     <p id="publicupdates">
       <span id="titlelist">Recent Public Updates</span>
     <table id="trackedlist">
-    <% @locations.keys.each do |username| %>
-      <tr>
-        <td><%= image_tag "/images/gmaps/mm_20_red.png" %></td>
-        <td><%= link_to username, "/#{username}" %></td>
-        <td><%= time_ago_in_words(@locations[username].first.date||Time.at(0)) %> ago </td>
-      </tr>
-    <% end %>
     </table>
     </p>
   </div>
@@ -36,3 +34,11 @@
 
 <!-- Google Maps -->
 <div id="map_canvas" style="width: 100%; height: 500px; margin-left:auto; margin-right: auto"></div>
+
+<script id="trackedUserTemplate" type="text/x-jquery-tmpl">
+  <tr>
+    <td>{{=MarkerImage}}}</td>
+    <td>{{=Userlink}}</td>
+    <td id='{{=UserName}}-date'>{{=TimeAgo}} ago </td>
+  </tr>
+</script>

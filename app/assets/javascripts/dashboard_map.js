@@ -2,6 +2,7 @@ var map, bounds;
 var tracked = {};
 
 $(mapstart);
+$(initial_tracked)
 $(iostart);
 
 function iostart() {
@@ -19,10 +20,15 @@ function iostart() {
         tracked[data.username].setPosition(point);
         $('#'+data.username+'-date').update(data.date)
       } else {
-        tracked[data.username] = make_marker(data.position);
-        $('#trackedlist').insert("<tr><td><img src='/images/gmaps/mm_20_red.png'></td><td><a href='/"+data.username+"'>"+data.username+"</a></td><td id='"+data.username+"-date'>"+data.date+"</td></tr>")
+        add_user(data.username, data.position)
       }
     }
+  })
+}
+
+function initial_tracked() {
+  initial_tracked.forEach(function(location) {
+    add_user(location.username, location.postition)
   })
 }
 
@@ -35,11 +41,13 @@ function mapstart() {
   };
   map = new google.maps.Map(document.getElementById("map_canvas"), mapOptions);
   map.fitBounds(bounds);
-
 }
 
-function add_user() {
-   //make_marker({latitude: <%=ary.last.geom.y%>, longitude: <%=ary.last.geom.x%>})
+function add_user(username, initial_position) {
+  tracked[username] = make_marker(initial_position);
+  $('#trackedlist').insert($("#trackedUserTemplate").render({
+    MarkerImage:"none", UserName: username, TimeAgo: "long"
+  }));
 }
 
 function make_marker(position) {
