@@ -6,10 +6,11 @@
   <%= stylesheet_link_tag "http://twitter.github.com/bootstrap/1.4.0/bootstrap.min.css" %>
   <%= javascript_include_tag "application" %>
   <%= csrf_meta_tags %>
+  <%= yield :header %>
 </head>
+
 <body>
-
 <%= yield %>
-
 </body>
+
 </html>

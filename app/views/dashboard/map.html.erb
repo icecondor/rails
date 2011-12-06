@@ -1,0 +1,38 @@
+<% content_for :header do %>
+  <script src="http://maps.google.com/maps/api/js?sensor=false" type="text/javascript"></script>
+  <script src="/socket.io/socket.io.js"></script>
+  <%= javascript_include_tag "dashboard_map.js" %>
+<% end %>
+
+<div class="mapfloatheading">
+  <div class="mapfloatcontent">
+    <p>
+      <span id="title">
+        IceCondor
+      </span>
+    </p>
+    <p id="subtitle">
+      Continuous location tracking for Android phones.  
+      <%= link_to "Download here", "https://market.android.com/details?id=com.icecondor.nest" %>
+    </p>
+
+    <%= flash[:notice] %>
+
+    <p id="publicupdates">
+      <span id="titlelist">Recent Public Updates</span>
+    <table id="trackedlist">
+    <% @locations.each do |ary| %>
+      <tr>
+        <td><%= image_tag "/images/gmaps/mm_20_red.png" %></td>
+        <td><%= link_to ary.last.user.username, "/locations.html?id=#{ary.last.user.openidentities.first.url}" %></td>
+        <td> <%= time_ago_in_words(ary.first.timestamp) %> ago </td>
+      </tr>
+    <% end %>
+    </table>
+    </p>
+  </div>
+</div>
+
+
+<!-- Google Maps -->
+<div id="map_canvas" style="width: 100%; height: 500px; margin-left:auto; margin-right: auto"></div>
