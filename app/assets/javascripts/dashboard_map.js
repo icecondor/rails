@@ -23,7 +23,7 @@ function iostart() {
         var point = new google.maps.LatLng(data.position.latitude, 
                                            data.position.longitude);
         tracked[data.username].setPosition(point);
-        $('#'+data.username+'-date').replaceWith(data.date)
+        $('#'+data.username+'-date').html(data.date)
         console.log('position update for '+data.username+' '+data.date)
       } else {
         add_user(data.username, data.position)
