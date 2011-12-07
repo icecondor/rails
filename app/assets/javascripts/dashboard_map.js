@@ -18,13 +18,13 @@ function iostart() {
   })
 
   socketio.on('update', function(data) {
-    console.log(data)
     if(data.type=="location") {
       if(tracked[data.username]) {
         var point = new google.maps.LatLng(data.position.latitude, 
                                            data.position.longitude);
         tracked[data.username].setPosition(point);
         $('#'+data.username+'-date').replaceWith(data.date)
+        console.log('position update for '+data.username+' '+data.date)
       } else {
         add_user(data.username, data.position)
       }
@@ -52,8 +52,6 @@ function mapstart() {
 }
 
 function add_user(username, initial_location) {
-  console.log("add user "+username)
-  console.log(initial_location)
   tracked[username] = make_marker(initial_location.position);
   var fields = {
     MarkerImage:"none", UserName: username, TimeAgo: initial_location.date
@@ -62,8 +60,6 @@ function add_user(username, initial_location) {
 }
 
 function make_marker(position) {
-  console.log('make_marker')
-  console.log(position)
   var point = new google.maps.LatLng(position.latitude, 
                                      position.longitude);
   var marker = new google.maps.Marker();
