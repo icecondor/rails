@@ -35,8 +35,9 @@ function iostart() {
 function setup_initial_tracked() {
   console.log("setup initial tracked")
   initial_tracked.forEach(function(location) {
-    add_user(location.username, location.position)
+    add_user(location.username, location)
   })
+  map.fitBounds(bounds);
 }
 
 function mapstart() {
@@ -48,25 +49,26 @@ function mapstart() {
     mapTypeId: google.maps.MapTypeId.ROADMAP
   };
   map = new google.maps.Map(document.getElementById("map_canvas"), mapOptions);
-  map.fitBounds(bounds);
 }
 
-function add_user(username, initial_position) {
-  tracked[username] = make_marker(initial_position);
+function add_user(username, initial_location) {
+  console.log("add user "+username)
+  console.log(initial_location)
+  tracked[username] = make_marker(initial_location.position);
   var fields = {
-    MarkerImage:"none", UserName: username, TimeAgo: initial_position.date
+    MarkerImage:"none", UserName: username, TimeAgo: initial_location.date
   };
-  console.log(fields)
   $('#trackedlist').append($("#trackedUserTemplate").render(fields));
 }
 
 function make_marker(position) {
+  console.log('make_marker')
+  console.log(position)
   var point = new google.maps.LatLng(position.latitude, 
                                      position.longitude);
   var marker = new google.maps.Marker();
   marker.setPosition(point);
   marker.setMap(map);
   bounds.extend(point);
-  map.fitBounds(bounds)
   return marker;
 }
