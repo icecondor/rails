@@ -23,7 +23,7 @@ class Location < CouchRest::Model::Base
            }"          
   end
 
-  def self.recent_users
+  def self.last_users
     last_report_for_users.reduce.group.rows.map{|r| r.key}.compact
   end
 
