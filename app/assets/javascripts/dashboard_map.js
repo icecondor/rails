@@ -18,7 +18,12 @@ function mapstart() {
 }
 
 function play_initial_locations() {
-  console.log("playback of initial locations")
+  console.log("creating users")
+  for(var username in group) {
+    add_user_ui(username)
+  }
+
+  console.log("playing initial locations")
   initial_locations.forEach(function(location) {
     update_position(location)
   })
@@ -45,34 +50,24 @@ function dispatch(msg) {
 
 function update_position(msg) {
   var marker = group[msg.username].marker;
-  if(marker) {
-    var point = new google.maps.LatLng(msg.position.latitude, 
-                                       msg.position.longitude);
-    marker.setPosition(point);
-    $('#'+msg.username+'-date').html(msg.date)
-  } else {
-    add_user_ui(msg)
-  }
+  var new_point = new google.maps.LatLng(msg.position.latitude, 
+                                         msg.position.longitude);
+  marker.setPosition(new_point);
+  $('#'+msg.username+'-date').html(msg.date)
+  bounds.extend(new_point);
 }
 
-function add_user_ui(initial_location) {
-  var user = group[initial_location.username];
-  user.marker = make_marker(initial_location.position, user.profile_image_url);
+function add_user_ui(username) {
+  var user = group[username];
+  user.marker = make_marker();
   var fields = {
-    UserName: initial_location.username, TimeAgo: initial_location.date,
-    ImageUrl: user.profile_image_url
+    UserName: username, TimeAgo: "", ImageUrl: user.profile_image_url
   };
   $('#trackedlist').append($("#trackedUserTemplate").render(fields));
 }
 
-function make_marker(position, image) {
-  var point = new google.maps.LatLng(position.latitude, 
-                                     position.longitude);
-  var marker_image = new google.maps.MarkerImage(image, 15);
+function make_marker() {
   var marker = new google.maps.Marker();
-  marker.setPosition(point);
   marker.setMap(map);
-  //marker.setIcon(marker_image);
-  bounds.extend(point);
   return marker;
 }
