@@ -30,10 +30,9 @@ function iostart() {
   var socketio = io.connect();
 
   // following
-  socketio.emit('following', { type: 'follow', username: 'iss' });
-  initial_locations.forEach(function(location) {
+  for(var username in group) {
     socketio.emit('following', { type: 'follow', username: location.username});
-  })
+  }
 
   socketio.on('update', dispatch)
 }
