@@ -8,7 +8,7 @@ $(function() {
   });
 
 function mapstart() {
-  console.log("mapstart")
+  console.log("googlemap start")
   bounds = new google.maps.LatLngBounds();
   var mapOptions = {
     zoom: 13,
@@ -35,7 +35,7 @@ function play_initial_locations() {
 }
 
 function iostart() {
-  console.log("iostart")
+  console.log("socketio start")
   var socketio = io.connect();
 
   // following
@@ -74,6 +74,7 @@ function add_user_ui(username) {
 function make_marker() {
   var marker = new google.maps.Marker();
   marker.setMap(map);
+  marker.setAnimation(google.maps.Animation.DROP);
   return marker;
 }
 
@@ -81,7 +82,7 @@ function pick_icons() {
   var images = ["yellow", "blue", "green", "red", "orange", "purple"]
   //var images = ["mm_20_yellow", "mm_20_blue", "mm_20_white"]
   var usernames = []
-  for(var username in group) { usernames.push(username)};
+  for(var username in group) {usernames.push(username)};
   for(var i=0,len=usernames.length; i < len; i++) {
     group[usernames[i]].marker_image_url = "/assets/mapmarkers/"+images[i]+".png"
   }

@@ -5,3 +5,31 @@
  *= require_self
  *= require_tree . 
 */
+
+#body {
+  padding-top: 60px; /* 40px to make the container go all the way to the bottom of the topbar */
+}
+
+#body .container {
+  width: 90%;
+}
+.container > footer p {
+  text-align: center; /* center align it with the container */
+}
+
+.topbar .container .brand {
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+.brand img {
+  height: 45px;
+  vertical-align: middle;
+}
+
+.topbar .nav {
+  padding-top: 5px;
+}
+
+.topbar .pull-right {
+  padding-top: 5px;
+}
