@@ -11,7 +11,7 @@
 }
 
 #body .container {
-  width: 90%;
+  width: 95%;
 }
 .container > footer p {
   text-align: center; /* center align it with the container */
@@ -28,6 +28,7 @@
 
 .topbar .nav {
   padding-top: 5px;
+  font-size: 120%;
 }
 
 .topbar .pull-right {
@@ -36,4 +37,9 @@
 
 .topbar .input-small {
   width: 20em;
+}
+
+.topbar #marketbutton {
+  height: 35px; 
+  padding-top: 8px
 }
