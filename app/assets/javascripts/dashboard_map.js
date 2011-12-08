@@ -1,5 +1,4 @@
 var map, bounds;
-var tracked = {};
 
 $(function() {
     mapstart();
@@ -46,21 +45,22 @@ function dispatch(msg) {
 }
 
 function update_position(msg) {
-  if(tracked[msg.username]) {
+  var marker = group[msg.username].marker;
+  if(marker) {
     var point = new google.maps.LatLng(msg.position.latitude, 
                                        msg.position.longitude);
-    tracked[msg.username].setPosition(point);
+    marker.setPosition(point);
     $('#'+msg.username+'-date').html(msg.date)
   } else {
-    add_user(msg.username, msg)
+    add_user(msg)
   }
 }
 
-function add_user(username, initial_location) {
-  var user = users[username];
-  tracked[username] = make_marker(initial_location.position, user.profile_image_url);
+function add_user(initial_location) {
+  var user = group[initial_location.username];
+  user.marker = make_marker(initial_location.position, user.profile_image_url);
   var fields = {
-    MarkerImage:"none", UserName: username, TimeAgo: initial_location.date,
+    MarkerImage:"none", UserName: user.username, TimeAgo: initial_location.date,
     ImageUrl: user.profile_image_url
   };
   $('#trackedlist').append($("#trackedUserTemplate").render(fields));
