@@ -52,15 +52,15 @@ function update_position(msg) {
     marker.setPosition(point);
     $('#'+msg.username+'-date').html(msg.date)
   } else {
-    add_user(msg)
+    add_user_ui(msg)
   }
 }
 
-function add_user(initial_location) {
+function add_user_ui(initial_location) {
   var user = group[initial_location.username];
   user.marker = make_marker(initial_location.position, user.profile_image_url);
   var fields = {
-    MarkerImage:"none", UserName: user.username, TimeAgo: initial_location.date,
+    UserName: user.username, TimeAgo: initial_location.date,
     ImageUrl: user.profile_image_url
   };
   $('#trackedlist').append($("#trackedUserTemplate").render(fields));
