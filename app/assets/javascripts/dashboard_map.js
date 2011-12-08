@@ -3,7 +3,7 @@ var tracked = {};
 
 $(function() {
     mapstart();
-    setup_initial_tracked();
+    play_initial_locations();
     iostart();
   });
 
@@ -18,10 +18,10 @@ function mapstart() {
   map = new google.maps.Map(document.getElementById("map_canvas"), mapOptions);
 }
 
-function setup_initial_tracked() {
-  console.log("setup initial tracked")
-  initial_tracked.forEach(function(location) {
-    add_user(location.username, location)
+function play_initial_locations() {
+  console.log("playback of initial locations")
+  initial_locations.forEach(function(location) {
+    update_position(location)
   })
   map.fitBounds(bounds);
 }
@@ -32,7 +32,7 @@ function iostart() {
 
   // following
   socketio.emit('following', { type: 'follow', username: 'iss' });
-  initial_tracked.forEach(function(location) {
+  initial_locations.forEach(function(location) {
     socketio.emit('following', { type: 'follow', username: location.username});
   })
 
@@ -51,9 +51,8 @@ function update_position(msg) {
                                        msg.position.longitude);
     tracked[msg.username].setPosition(point);
     $('#'+msg.username+'-date').html(msg.date)
-    console.log('position update for '+msg.username+' '+msg.date)
   } else {
-    add_user(msg.username, msg.position)
+    add_user(msg.username, msg)
   }
 }
 
