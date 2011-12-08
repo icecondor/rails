@@ -52,20 +52,23 @@ function mapstart() {
 }
 
 function add_user(username, initial_location) {
-  tracked[username] = make_marker(initial_location.position);
+  var user = users[username];
+  tracked[username] = make_marker(initial_location.position, user.profile_image_url);
   var fields = {
     MarkerImage:"none", UserName: username, TimeAgo: initial_location.date,
-    ImageUrl: users[username].profile_image_url
+    ImageUrl: user.profile_image_url
   };
   $('#trackedlist').append($("#trackedUserTemplate").render(fields));
 }
 
-function make_marker(position) {
+function make_marker(position, image) {
   var point = new google.maps.LatLng(position.latitude, 
                                      position.longitude);
+  var marker_image = new google.maps.MarkerImage(image, 15);
   var marker = new google.maps.Marker();
   marker.setPosition(point);
   marker.setMap(map);
+  //marker.setIcon(marker_image);
   bounds.extend(point);
   return marker;
 }
