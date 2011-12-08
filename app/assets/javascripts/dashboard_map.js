@@ -54,7 +54,8 @@ function mapstart() {
 function add_user(username, initial_location) {
   tracked[username] = make_marker(initial_location.position);
   var fields = {
-    MarkerImage:"none", UserName: username, TimeAgo: initial_location.date
+    MarkerImage:"none", UserName: username, TimeAgo: initial_location.date,
+    ImageUrl: users[username].profile_image_url
   };
   $('#trackedlist').append($("#trackedUserTemplate").render(fields));
 }

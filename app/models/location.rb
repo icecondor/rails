@@ -1,6 +1,7 @@
 class Location < CouchRest::Model::Base
   property :date, Time
   property :position
+  property :username, String
 
   design do
     view :last_report_for_users,

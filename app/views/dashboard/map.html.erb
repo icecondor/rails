@@ -6,6 +6,7 @@
 <!-- initial data -->
 <script>
 var initial_tracked = <%=raw @locations.to_json %>;
+var users = <%=raw @users.to_json %>;
 </script>
 
 <div class="mapfloatheading">
@@ -36,7 +37,7 @@ var initial_tracked = <%=raw @locations.to_json %>;
 
 <script id="trackedUserTemplate" type="text/x-jquery-tmpl">
   <tr>
-    <td>{{=MarkerImage}}</td>
+    <td><img class="markerprofile" src="{{=ImageUrl}}" /></td>
     <td><a href="/{{=UserName}}">{{=UserName}}</a></td>
     <td id='{{=UserName}}-date'>{{=TimeAgo}} ago </td>
   </tr>
