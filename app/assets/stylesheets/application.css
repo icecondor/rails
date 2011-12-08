@@ -33,3 +33,7 @@
 .topbar .pull-right {
   padding-top: 5px;
 }
+
+.topbar .input-small {
+  width: 20em;
+}
