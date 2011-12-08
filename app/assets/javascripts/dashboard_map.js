@@ -2,6 +2,7 @@ var map, bounds;
 
 $(function() {
     mapstart();
+    define_group_ui();
     play_initial_locations();
     iostart();
   });
@@ -17,12 +18,14 @@ function mapstart() {
   map = new google.maps.Map(document.getElementById("map_canvas"), mapOptions);
 }
 
-function play_initial_locations() {
+function define_group_ui() {
   console.log("creating users")
   for(var username in group) {
     add_user_ui(username)
   }
+}
 
+function play_initial_locations() {
   console.log("playing initial locations")
   initial_locations.forEach(function(location) {
     update_position(location)
