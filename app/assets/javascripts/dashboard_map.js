@@ -7,29 +7,15 @@ $(function() {
     iostart();
   });
 
-function iostart() {
-  console.log("iostart")
-  var socketio = io.connect();
-
-  // following
-  socketio.emit('following', { type: 'follow', username: 'iss' });
-  initial_tracked.forEach(function(location) {
-    socketio.emit('following', { type: 'follow', username: location.username});
-  })
-
-  socketio.on('update', function(data) {
-    if(data.type=="location") {
-      if(tracked[data.username]) {
-        var point = new google.maps.LatLng(data.position.latitude, 
-                                           data.position.longitude);
-        tracked[data.username].setPosition(point);
-        $('#'+data.username+'-date').html(data.date)
-        console.log('position update for '+data.username+' '+data.date)
-      } else {
-        add_user(data.username, data.position)
-      }
-    }
-  })
+function mapstart() {
+  console.log("mapstart")
+  bounds = new google.maps.LatLngBounds();
+  var mapOptions = {
+    zoom: 14,
+    center: bounds.getCenter(),
+    mapTypeId: google.maps.MapTypeId.ROADMAP
+  };
+  map = new google.maps.Map(document.getElementById("map_canvas"), mapOptions);
 }
 
 function setup_initial_tracked() {
@@ -40,15 +26,35 @@ function setup_initial_tracked() {
   map.fitBounds(bounds);
 }
 
-function mapstart() {
-  console.log("mapstart")
-  bounds = new google.maps.LatLngBounds();
-  var mapOptions = {
-    zoom: 14,
-    center: bounds.getCenter(),
-    mapTypeId: google.maps.MapTypeId.ROADMAP
-  };
-  map = new google.maps.Map(document.getElementById("map_canvas"), mapOptions);
+function iostart() {
+  console.log("iostart")
+  var socketio = io.connect();
+
+  // following
+  socketio.emit('following', { type: 'follow', username: 'iss' });
+  initial_tracked.forEach(function(location) {
+    socketio.emit('following', { type: 'follow', username: location.username});
+  })
+
+  socketio.on('update', dispatch)
+}
+
+function dispatch(msg) {
+  if(msg.type=="location") {
+    update_position(msg)
+  }
+}
+
+function update_position(msg) {
+  if(tracked[msg.username]) {
+    var point = new google.maps.LatLng(msg.position.latitude, 
+                                       msg.position.longitude);
+    tracked[msg.username].setPosition(point);
+    $('#'+msg.username+'-date').html(msg.date)
+    console.log('position update for '+msg.username+' '+msg.date)
+  } else {
+    add_user(msg.username, msg.position)
+  }
 }
 
 function add_user(username, initial_location) {
