@@ -46,7 +46,6 @@
 }
 
 #signup_form {
-  display:none; /* form starts out hidden */
   padding: 1em;
   background:white;
 }
