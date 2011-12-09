@@ -1,5 +1,6 @@
 Icecondor::Application.routes.draw do
   resource :session
+  resource :users
   
   match "/dashboard/livemap" => "dashboard#map"
   match "/dashboard/features" => "dashboard#features"
