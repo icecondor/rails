@@ -35,16 +35,13 @@
 $(function(){
   $('.hero-unit .menu li a').each(function(idx, el){
     console.log(el);
-    el.click(function(){
-      console.log('click')
-      })
-    });
+    $(el).click(function(){
+      slide(el,idx)
+    })
+  });
 });
 
 function slide(el, pos) {
-  console.log('slide')
-  //$('#ewindow').css("left",(-800*pos)+"px")
-  /*$$('.hero-unit .menu li').removeClassName('active')
-  el.parent().addClassName('active')*/
+  $('#ewindow').css("left",(-800*pos)+"px")
 }
 </script>
