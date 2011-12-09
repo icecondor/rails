@@ -12,11 +12,18 @@
             <li id="developers"><a href="/dashboard/developers">Developers</a></li>
           </ul>
           <a href="https://market.android.com/details?id=com.icecondor.nest"><img id="marketbutton" src="/assets/market.png" ></a>
-          <form action="" class="pull-right">
+
+          <% if true %>
+          <form id="login" action="" class="pull-right">
+            <button class="btn" type="submit">Log out</button>
+          </form>          
+          <% else %>
+          <form id="login" action="" class="pull-right">
             <input class="input-small" type="email"
                    placeholder="e-mail address">
             <button class="btn" type="submit">Sign in</button>
           </form>
+          <% end %>
         </div>
       </div>
     </div>
