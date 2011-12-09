@@ -1,5 +1,5 @@
   <style>
-.hero-unit .feature { float: left; width: 800px; background: yellow; }
+.hero-unit .feature { float: left; width: 800px; background: ; }
 .hero-unit .menu { clear: extrawide; list-style: none; margin-left: auto; font-size: 140%; margin-top: 10px; margin-right: auto;}
 .hero-unit .menu li { display:inline; }
 .hero-unit ul.menu { width: 30%;}
@@ -7,27 +7,39 @@
 .slidewindow { height: 300px; position: relative; overflow:hidden}
   </style>
 
+<script>
+  $('.topbar .nav #features').addClass('active')
+</script>
   <div class="hero-unit">
 
-   <div class="slidewindow">
-     <div class="extrawide" id="ewindow">
-      <!-- section B -->
-      <div class="feature" id="cto">
-         Easy on/off
-      </div>
+    <div class="slidewindow">
+      <div class="extrawide" id="ewindow">
 
-      <!-- section C -->
-      <div class="feature" id="gef">
-       Geo Fences
-      </div>
-     </div>
-   </div>
+        <!-- section  -->
+        <div class="feature" id="cto">
+           <p>
+           Use the homescreen widget to <br/>
+           turn IceCondor on or off  <br/>
+           with one press.
+           </p>
+           <img src="/assets/features/ic-on.png">
+        </div>
 
-   <!-- scroll controlls -->
-   <ul class="menu">
-    <li><a href="#">Easy On/Off</a> |</li>
-    <li><a href="#">GeoFences</a> </li>
-   </ul>
+        <!-- section  -->
+        <div class="feature" id="gef">
+          <p>
+            Geo Fences (coming)
+          </p>
+          <img src="/assets/features/geofence.png">
+        </div>
+      </div>
+    </div>
+
+    <!-- scroll controlls -->
+    <ul class="menu">
+      <li><a href="#">Easy On/Off</a> |</li>
+      <li><a href="#">GeoFences</a> </li>
+    </ul>
 
   </div>
 

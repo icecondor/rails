@@ -3,6 +3,10 @@
   <script src="/socket.io/socket.io.js"></script>
 <% end %>
 
+<script>
+  $('.topbar .nav #livemap').addClass('active')
+</script>
+
 <!-- initial data -->
 <script>
 var initial_locations = <%=raw @locations.to_json %>;
