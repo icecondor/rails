@@ -35,7 +35,7 @@
   padding-top: 5px;
 }
 
-.topbar .input-small {
+.topbar #login-email {
   width: 20em;
 }
 
@@ -43,4 +43,22 @@
   height: 35px; 
   padding-top: 8px;
   margin-left: 3em;
+}
+
+#signup_form {
+  display:none; /* form starts out hidden */
+  padding: 1em;
+  background:white;
+}
+
+#signup_form li {
+  list-style: none;
+}
+
+#signup_form img {
+  vertical-align: middle;
+}
+
+#signup_form .title {
+  font-size: 150%;
 }

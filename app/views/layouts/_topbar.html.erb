@@ -23,7 +23,7 @@
           <% else %>
             <form id="login" action="/session" method="post" class="pull-right">
               <input class="input-small" type="email"
-                     placeholder="e-mail address">
+                     placeholder="e-mail address" id="login-email">
               <button class="btn" type="submit">Sign in</button>
             </form>
             <script>
@@ -33,3 +33,24 @@
         </div>
       </div>
     </div>
+
+    <div id="signup_form">
+      <p class="title">
+        <img src="/assets/icon-64x64.png"> IceCondor Signup
+      <p>
+      <form>
+        <ul>
+          <li> <label for="signup-email">Email Address </label> <br/>
+               <input type="email" name="email" id="signup-email"> 
+          </li>
+          <li> <label for="signup-username">Username </label> <br/>
+               <input type="text" name="username" id="signup-username"> 
+          </li>
+          <li> <label for="signup-password">Password </label> <br/>
+               <input type="password" name="password" id="signup-password"> 
+          </li>
+        </ul>
+      </form>
+    </div>
+    <script>
+    </script>
