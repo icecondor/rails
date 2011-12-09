@@ -1,0 +1,50 @@
+  <style>
+.hero-unit .feature { float: left; width: 800px; background: yellow; }
+.hero-unit .menu { clear: extrawide; list-style: none; margin-left: auto; font-size: 140%; margin-top: 10px; margin-right: auto;}
+.hero-unit .menu li { display:inline; }
+.hero-unit ul.menu { width: 30%;}
+.extrawide { width: 1600px; position: absolute; -moz-transition: left 1s; -webkit-transition: left 1s; left: 0px }
+.slidewindow { height: 300px; position: relative; overflow:hidden}
+  </style>
+
+  <div class="hero-unit">
+
+   <div class="slidewindow">
+     <div class="extrawide" id="ewindow">
+      <!-- section B -->
+      <div class="feature" id="cto">
+         Easy on/off
+      </div>
+
+      <!-- section C -->
+      <div class="feature" id="gef">
+       Geo Fences
+      </div>
+     </div>
+   </div>
+
+   <!-- scroll controlls -->
+   <ul class="menu">
+    <li><a href="#">Easy On/Off</a> |</li>
+    <li><a href="#">GeoFences</a> </li>
+   </ul>
+
+  </div>
+
+<script>
+$(function(){
+  $('.hero-unit .menu li a').each(function(idx, el){
+    console.log(el);
+    el.click(function(){
+      console.log('click')
+      })
+    });
+});
+
+function slide(el, pos) {
+  console.log('slide')
+  //$('#ewindow').css("left",(-800*pos)+"px")
+  /*$$('.hero-unit .menu li').removeClassName('active')
+  el.parent().addClassName('active')*/
+}
+</script>

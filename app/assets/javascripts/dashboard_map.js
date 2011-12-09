@@ -1,12 +1,5 @@
 var map, bounds;
 
-$(function() {
-    mapstart();
-    define_group_ui();
-    play_initial_locations();
-    iostart();
-  });
-
 function mapstart() {
   console.log("googlemap start")
   bounds = new google.maps.LatLngBounds();
