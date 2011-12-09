@@ -1,10 +1,10 @@
   <style>
-.hero-unit .feature { float: left; width: 800px; background: ; }
+.hero-unit .feature { float: left; width: 800px; background: ; text-align:center;}
 .hero-unit .menu { clear: extrawide; list-style: none; margin-left: auto; font-size: 140%; margin-top: 10px; margin-right: auto;}
 .hero-unit .menu li { display:inline; }
 .hero-unit ul.menu { width: 30%;}
-.extrawide { width: 1600px; position: absolute; -moz-transition: left 1s; -webkit-transition: left 1s; left: 0px }
-.slidewindow { height: 300px; position: relative; overflow:hidden}
+#extrawide { width: 1600px; position: absolute; -moz-transition: left 1s; -webkit-transition: left 1s; left: 0px }
+.slidewindow { height: 300px; width: 800px; margin-left: 100px; position: relative; overflow:hidden}
   </style>
 
 <script>
@@ -13,7 +13,7 @@
   <div class="hero-unit">
 
     <div class="slidewindow">
-      <div class="extrawide" id="ewindow">
+      <div id="extrawide">
 
         <!-- section  -->
         <div class="feature" id="cto">
@@ -54,6 +54,6 @@ $(function(){
 });
 
 function slide(el, pos) {
-  $('#ewindow').css("left",(-800*pos)+"px")
+  $('#extrawide').css("left",(-800*pos)+"px")
 }
 </script>
