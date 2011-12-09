@@ -17,15 +17,18 @@
 
           <% if logged_in? %>
             <span style="color:white">user: <%= current_user %></span>
-            <form id="login" action="/session" method="post" class="pull-right">
+            <form id="login" action="/session" method="delete" class="pull-right">
               <button class="btn" type="submit">Log out</button>
             </form>          
           <% else %>
-            <form id="login" action="" class="pull-right">
+            <form id="login" action="/session" method="post" class="pull-right">
               <input class="input-small" type="email"
                      placeholder="e-mail address">
               <button class="btn" type="submit">Sign in</button>
             </form>
+            <script>
+              $('#login').submit(login_submit)
+            </script>
           <% end %>
         </div>
       </div>

@@ -9,10 +9,23 @@ class User < CouchRest::Model::Base
                emit(doc.username,doc);
              }
            }"
+    view :by_email,
+         :map => "function(doc) {
+             if(doc.type == 'user') {
+               emit(doc.email,doc);
+             }
+           }"
   end
 
-  def find_by_username(username)
+  def self.find_by_username(username)
+    return if username.nil?
     user = by_username.key(username).rows.first
+    user.value if user
+  end
+
+  def self.find_by_email(email)
+    return if email.nil?
+    user = by_email.key(email).rows.first
     user.value if user
   end
 

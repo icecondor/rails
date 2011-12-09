@@ -5,7 +5,7 @@ class ApplicationController < ActionController::Base
 
   before_filter :auth
 
-  def auth
+  def auth    
     login(session[:logged_in_user])
   end
 
