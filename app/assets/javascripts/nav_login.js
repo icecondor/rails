@@ -27,4 +27,10 @@ function signup_submit(e) {
 
 function signup_callback(data, status) {
   console.log(data)
+  if(data.status == "ERR") {
+    if(data.username == "TAKEN") {
+      console.log('setting error field')
+      $("#signup-username").addClass("error")
+    }
+  }
 }
