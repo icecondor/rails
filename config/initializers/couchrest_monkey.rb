@@ -26,6 +26,42 @@ module CouchRest
         end
       end
     end
+
+    module Views
+      module ClassMethods
+        def view_by(*keys)
+          opts = keys.pop if keys.last.is_a?(Hash)
+          opts ||= {}
+          ducktype = opts.delete(:ducktype)
+          unless ducktype || opts[:map]
+            opts[:guards] ||= []
+            opts[:guards].push "(doc['#{model_type_key}'] == '#{self.to_s.underscore}')"
+          end
+          keys.push opts
+          design_doc.view_by(*keys)
+        end
+      end
+    end
+
+    module DesignDoc
+      module ClassMethods
+        def default_design_doc
+          {
+            "_id" => design_doc_id,
+            "language" => "javascript",
+            "views" => {
+              'all' => {
+                'map' => "function(doc) {
+                  if (doc['#{self.model_type_key}'] == '#{self.to_s.underscore}') {
+                    emit(doc['_id'],1);
+                  }
+                }"
+              }
+            }
+          }
+        end
+      end
+    end
   end
 end
 
