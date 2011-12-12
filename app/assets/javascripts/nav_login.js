@@ -11,7 +11,7 @@ function login_callback(data, status) {
     new_user_form(data)
   }
   if(data.status == "OK") {
-    login_success(data)
+    login_success(data.user)
   }
 }
 
@@ -58,14 +58,23 @@ function signup_callback(data, status) {
   }
 }
 
-function login_success(data) {
-  console.log(data)
+function login_success(user) {
+  console.log(user)
   $(".topbar #signing_in").hide()
-  $(".topbar #logged_in #username").html(data.username)
+  $(".topbar #logged_in #username").html(user.username)
   $(".topbar #logged_in").show()
 }
 
-function login_logout() {
+function logout_submit() {
+  $.ajax({
+    type: 'DELETE',
+    url: '/session',
+    success: logout_callback
+  });
   $(".topbar #logged_in").hide()
   $(".topbar #signing_in").show()
+}
+
+function logout_callback() {
+  
 }

@@ -17,7 +17,7 @@
 
           <span style="display:none" id="logged_in">
             <span style="color:white" id="username" ></span>
-            <form id="login" action="/session" method="delete" class="pull-right">
+            <form id="logout" action="/session" method="delete" class="pull-right">
               <button class="btn" type="submit">Log out</button>
             </form>          
           </span>
@@ -30,12 +30,13 @@
             </form>
             <script>
               $('.topbar #login').submit(function(e){login_submit($(e.target.email).val()); return false;})
+              $('.topbar #logout').submit(function(e){logout_submit();return false;})
             </script>
           </span>
 
           <script>
           <% if logged_in? %>   
-            login_success(<%=current_user.to_json%>)      
+            login_success(<%=raw current_user.to_json%>)      
           <% else %>
             login_logout();
           <% end %>
