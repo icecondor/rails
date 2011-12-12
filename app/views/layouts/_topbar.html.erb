@@ -32,15 +32,15 @@
 
           <span style="display:none" id="signin_password">
             <form id="password" action="/session" method="post" class="pull-right">
-              <input class="input-small" type="email" name="email"
-                     placeholder="e-mail address" id="login-email">
+              <input class="input-small" type="password" name="password"
+                     placeholder="password" id="login-email">
               <button class="btn" type="submit">Sign in</button>
             </form>
           </span>
 
             <script>
               $('.topbar #login').submit(function(e){login_submit($(e.target.email).val()); return false;})
-              $('.topbar #password').submit(function(e){login_password();return false;})
+              $('.topbar #password').submit(function(e){login_password($('#login-email').val(), e.target.password.value);return false;})
               $('.topbar #logout').submit(function(e){logout_submit();return false;})
             </script>
 

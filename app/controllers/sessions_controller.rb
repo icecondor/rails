@@ -4,8 +4,17 @@ class SessionsController < ApplicationController
     response = {}
     user = User.find_by_email(email)
     if user
-      session[:logged_in_user] = user.username
-      response.merge!(:status => "OK", :user => user)
+      if params[:password].nil?
+        response.merge!(:status => "NEEDPASS")
+      else
+        if params[:password] == user.password
+          session[:logged_in_user] = user.username
+          response.merge!(:status => "OK", :user => user)
+        else
+          logger.info("given: #{params[:password]} recorded:#{user.password}")
+          response.merge!(:status => "BADPASS")
+        end
+      end
     else
       response.merge!(:status => "NOTFOUND", :email => email)
     end

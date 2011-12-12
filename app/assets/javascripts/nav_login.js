@@ -10,8 +10,22 @@ function login_callback(data, status) {
   if(data.status == "NOTFOUND") {
     new_user_form(data)
   }
-  if(data.status == "OK") {
-    login_success(data.user)
+  if(data.status == "NEEDPASS") {
+    $(".topbar #signing_in").hide()
+    $(".topbar #signin_password").show()
+  }
+}
+
+function login_password(email, password) {
+  console.log("login password email:"+email+" password:"+password)
+  $.post('/session', {email: email, password: password}, password_callback)
+}
+
+function password_callback(data) {
+  console.log("password_callback")
+  console.log(data)
+  if (data.status == "OK") {
+    login_success(data.user) 
   }
 }
 
@@ -72,6 +86,7 @@ function signup_callback(data, status) {
 function login_success(user) {
   console.log(user)
   $(".topbar #signing_in").hide()
+  $(".topbar #signin_password").hide()
   $(".topbar #logged_in #username").html(user.username)
   $(".topbar #logged_in").show()
 }
