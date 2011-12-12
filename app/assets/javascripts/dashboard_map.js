@@ -37,6 +37,11 @@ function iostart() {
   }
 
   socketio.on('update', dispatch)
+  socketio.on('disconnect', disconnect)
+}
+
+function disconnect() {
+  console.log('disconnect!')
 }
 
 function dispatch(msg) {

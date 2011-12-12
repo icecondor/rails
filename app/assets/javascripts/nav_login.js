@@ -17,7 +17,7 @@ function new_user_form(data) {
 }
 
 function signup_submit(e) {
-
+  signup_clear_errs();
   $.post('/users', {email: $('#signup-email').val(),
                     username: $('#signup-username').val(),
                     password: $('#signup-password').val()
@@ -25,12 +25,23 @@ function signup_submit(e) {
   return false
 }
 
+function signup_clear_errs() {
+  $("#signup-username-row").removeClass("error")
+  $("#signup-username-err").html('')
+  $("#signup-email-row").removeClass("error")
+  $("#signup-email-err").html('')
+}
+
 function signup_callback(data, status) {
   console.log(data)
   if(data.status == "ERR") {
     if(data.username == "TAKEN") {
-      console.log('setting error field')
-      $("#signup-username").addClass("error")
+      $("#signup-username-row").addClass("error")
+      $("#signup-username-err").html('- Taken')
+    }
+    if(data.email == "TAKEN") {
+      $("#signup-email-row").addClass("error")
+      $("#signup-email-err").html('- Taken')
     }
   }
 }
