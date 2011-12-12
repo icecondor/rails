@@ -1,26 +1,34 @@
-function login_submit() {
-  $.post('/session', {email: $('#login-email').val()}, login_callback)
-  return false
+function login_submit(email) {
+  console.log('login_submit')
+  console.log(email)
+  $.post('/session', {email: email}, login_callback)
 }
 
 function login_callback(data, status) {
+  console.log("login_callback.")
+  console.log(data)
   if(data.status == "NOTFOUND") {
     new_user_form(data)
+  }
+  if(data.status == "OK") {
+    login_success(data)
   }
 }
 
 function new_user_form(data) {
+  console.log("new_user_form")
+  console.log(data)
   $('#signup-email').val(data.email)
-  $('#signup_form').submit(signup_submit)
   $.colorbox({inline:true, href: $('#signup_form'),
               opacity: 0.99, top: "10%"})
 }
 
 function signup_submit(e) {
   signup_clear_errs();
-  $.post('/users', {email: $('#signup-email').val(),
-                    username: $('#signup-username').val(),
-                    password: $('#signup-password').val()
+  var form = e.target;
+  $.post('/users', {"user[email]": form.email.value,
+                    "user[username]": form.username.value,
+                    "user[password]": form.password.value
   }, signup_callback)
   return false
 }
@@ -44,4 +52,20 @@ function signup_callback(data, status) {
       $("#signup-email-err").html('- Taken')
     }
   }
+  if(data.status == "OK") {
+    $.colorbox.close();
+    login_submit(data.user.email);
+  }
+}
+
+function login_success(data) {
+  console.log(data)
+  $(".topbar #signing_in").hide()
+  $(".topbar #logged_in #username").html(data.username)
+  $(".topbar #logged_in").show()
+}
+
+function login_logout() {
+  $(".topbar #logged_in").hide()
+  $(".topbar #signing_in").show()
 }

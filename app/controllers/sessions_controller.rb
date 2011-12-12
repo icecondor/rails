@@ -8,6 +8,6 @@ class SessionsController < ApplicationController
     else
       status = "NOTFOUND"
     end
-    render :json => {:status => status, :email => email}
+    render :json => {:status => status, :email => email, :user => user.to_json}
   end
 end

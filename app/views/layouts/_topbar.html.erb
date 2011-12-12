@@ -15,21 +15,31 @@
             <img id="marketbutton" src="/assets/market.png">
           </a>
 
-          <% if logged_in? %>
-            <span style="color:white">user: <%= current_user %></span>
+          <span style="display:none" id="logged_in">
+            <span style="color:white" id="username" ></span>
             <form id="login" action="/session" method="delete" class="pull-right">
               <button class="btn" type="submit">Log out</button>
             </form>          
-          <% else %>
+          </span>
+
+          <span style="display:none" id="signing_in">
             <form id="login" action="/session" method="post" class="pull-right">
-              <input class="input-small" type="email"
+              <input class="input-small" type="email" name="email"
                      placeholder="e-mail address" id="login-email">
               <button class="btn" type="submit">Sign in</button>
             </form>
             <script>
-              $('#login').submit(login_submit)
+              $('.topbar #login').submit(function(e){login_submit($(e.target.email).val()); return false;})
             </script>
+          </span>
+
+          <script>
+          <% if logged_in? %>   
+            login_success(<%=current_user.to_json%>)      
+          <% else %>
+            login_logout();
           <% end %>
+          </script>
         </div>
       </div>
     </div>
@@ -60,4 +70,5 @@
       </div>
     </div>
     <script>
+      $('#signup_form').submit(signup_submit)
     </script>

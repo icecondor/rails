@@ -1,6 +1,7 @@
 class User < CouchRest::Model::Base
   property :username, String
   property :profile_image_url, String
+  property :email, String
 
   design do
     view :by_username,
