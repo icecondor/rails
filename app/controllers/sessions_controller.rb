@@ -12,7 +12,19 @@ class SessionsController < ApplicationController
     render :json => response
   end
 
+  def show
+    username = session[:logged_in_user]
+    if username
+      user = User.find_by_username(username)
+      response = {:status => "OK", :user => user}
+    else
+      response = {:status => "NOLOGIN"}
+    end
+     render :json => response
+  end
+
   def destroy
+    #session.destroy
     session[:logged_in_user] = nil
     render :json => {:status => "OK"}
   end

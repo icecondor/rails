@@ -15,6 +15,17 @@ function login_callback(data, status) {
   }
 }
 
+function login_verify() {
+  $.get('/session', function(data) {
+    if (data.status == "OK") {
+      login_success(data.user) 
+    }
+    if (data.status == "NOLOGIN") {
+      logout_callback()
+    }
+  })
+}
+
 function new_user_form(data) {
   console.log("new_user_form")
   console.log(data)
@@ -71,10 +82,9 @@ function logout_submit() {
     url: '/session',
     success: logout_callback
   });
-  $(".topbar #logged_in").hide()
-  $(".topbar #signing_in").show()
 }
 
 function logout_callback() {
-  
+  $(".topbar #logged_in").hide()
+  $(".topbar #signing_in").show()  
 }

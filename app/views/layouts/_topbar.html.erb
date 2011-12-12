@@ -28,18 +28,24 @@
                      placeholder="e-mail address" id="login-email">
               <button class="btn" type="submit">Sign in</button>
             </form>
-            <script>
-              $('.topbar #login').submit(function(e){login_submit($(e.target.email).val()); return false;})
-              $('.topbar #logout').submit(function(e){logout_submit();return false;})
-            </script>
           </span>
 
+          <span style="display:none" id="signin_password">
+            <form id="password" action="/session" method="post" class="pull-right">
+              <input class="input-small" type="email" name="email"
+                     placeholder="e-mail address" id="login-email">
+              <button class="btn" type="submit">Sign in</button>
+            </form>
+          </span>
+
+            <script>
+              $('.topbar #login').submit(function(e){login_submit($(e.target.email).val()); return false;})
+              $('.topbar #password').submit(function(e){login_password();return false;})
+              $('.topbar #logout').submit(function(e){logout_submit();return false;})
+            </script>
+
           <script>
-          <% if logged_in? %>   
-            login_success(<%=raw current_user.to_json%>)      
-          <% else %>
-            login_logout();
-          <% end %>
+            login_verify();
           </script>
         </div>
       </div>
