@@ -3,8 +3,8 @@ module MiniAuth
     @current_user
   end
 
-  def login(user)
-    @current_user = user
+  def login(username)
+    @current_user = User.find_by_username(username)
   end
 
   def logout
