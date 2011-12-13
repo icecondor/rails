@@ -7,5 +7,6 @@ class User < CouchRest::Model::Base
 
   view_by :email
   view_by :username
+  view_by :oauth_token
 
 end
