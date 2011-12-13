@@ -5,6 +5,8 @@ class Location < CouchRest::Model::Base
   property :batterylevel, Float
   timestamps!
 
+  validates :username, :presence => true
+
   design do
     view :last_report_for_users,
          :map => "function(doc) {

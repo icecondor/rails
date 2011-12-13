@@ -3,11 +3,13 @@ class LocationsController < ApplicationController
     user = User.find_by_oauth_token(params[:oauth_token])
     if user
       # translate from v1 Location to v2 Location
-      l = params[:location]
       location = Location.v1create(params)
-      location.username = user
+
+      # assign ownership
+      location.username = user.username
       location.save
       logger.info("Created #{location.inspect}")
+      
       render :json => {:id => location.id}
     else
       logger.info("User not found for oauth_token: #{params[:oauth_token].inspect}")
