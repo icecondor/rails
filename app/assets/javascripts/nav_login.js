@@ -11,8 +11,8 @@ function login_callback(data, status) {
     new_user_form(data)
   }
   if(data.status == "NEEDPASS") {
-    $(".topbar #signing_in").hide()
-    $(".topbar #signin_password").show()
+    $.colorbox({inline:true, href: $('#full-login-form'),
+            opacity: 0.99, top: "10%"})
   }
 }
 
@@ -25,6 +25,7 @@ function password_callback(data) {
   console.log("password_callback")
   console.log(data)
   if (data.status == "OK") {
+    $.colorbox.close();
     login_success(data.user) 
   }
 }

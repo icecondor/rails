@@ -73,3 +73,12 @@
   padding-top: 0px;
   padding-bottom: 0px;
 }
+
+#full-login-form {
+  padding-top: 1em;
+  padding-left: 1em;
+  padding-right: 2em;
+  padding-bottom: 1em;
+  background:white;
+}
+
