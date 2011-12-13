@@ -21,7 +21,7 @@ function login_callback(data, status) {
 }
 
 function login_password(email, password) {
-  console.log("login password email:"+email+" password:"+password)
+  console.log("login_password email:"+email+" password:"+password)
   $.post('/session', {email: email, password: password}, password_callback)
 }
 
@@ -63,7 +63,7 @@ function signup_submit(e) {
   $.post('/users', {"user[email]": form.email.value,
                     "user[username]": form.username.value,
                     "user[password]": form.password.value
-  }, signup_callback)
+  }, function(data,status){signup_callback(data,status,form)})
   return false
 }
 
@@ -74,7 +74,8 @@ function signup_clear_errs() {
   $("#signup-email-err").html('')
 }
 
-function signup_callback(data, status) {
+function signup_callback(data, status, form) {
+  console.log("signup_callback")
   console.log(data)
   if(data.status == "ERR") {
     if(data.username == "TAKEN") {
@@ -88,7 +89,7 @@ function signup_callback(data, status) {
   }
   if(data.status == "OK") {
     $.colorbox.close();
-    login_submit(data.user.email);
+    login_password(form.email.value, form.password.value);
   }
 }
 
