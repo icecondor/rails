@@ -11,8 +11,12 @@ function login_callback(data, status) {
     new_user_form(data)
   }
   if(data.status == "NEEDPASS") {
+    $('#full-login-password-err').html('')
+    $('#full-login-email').val($('#login-email').val())   
+    $('#full-login-password-row').removeClass('error')
     $.colorbox({inline:true, href: $('#full-login-form'),
-            opacity: 0.99, top: "10%"})
+            opacity: 0.99, top: "10%",
+            onComplete:function() { $('#full-login-password').focus()}})
   }
 }
 
@@ -27,6 +31,10 @@ function password_callback(data) {
   if (data.status == "OK") {
     $.colorbox.close();
     login_success(data.user) 
+  }
+  if (data.status == "BADPASS") {
+    $('#full-login-password-err').html(' - Wrong')
+    $('#full-login-password-row').addClass('error')
   }
 }
 
@@ -88,7 +96,7 @@ function login_success(user) {
   console.log(user)
   $(".topbar #signing_in").hide()
   $(".topbar #signin_password").hide()
-  $(".topbar #logged_in #username").html(user.username)
+  $(".topbar #logged_in .username").html(user.username)
   $(".topbar #logged_in").show()
 }
 

@@ -17,7 +17,7 @@
 
           <span style="display:none" id="logged_in">
             <form id="logout" action="/session" method="delete" class="pull-right">
-              <label  id="username" ></label>
+              <span  class="username" ></span>
               <button class="btn" type="submit">Log out</button>
             </form>          
           </span>
@@ -83,7 +83,7 @@
              <input type="email" name="email" id="full-login-email"> 
           </div>
           <div class="clearfix input-append" id="full-login-password-row">
-             <label for="full-login-password">Password</label> 
+             <label for="full-login-password">Password <span id="full-login-password-err"/></label> 
              <input type="password" name="password" id="full-login-password"> 
           </div>
           <div class="">
