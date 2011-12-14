@@ -82,6 +82,14 @@
   background:white;
 }
 
+#full-login-form .title {
+  font-size: 150%;
+}
+
+#full-login-form img {
+  vertical-align: middle;
+}
+
 #full-login-form div.clearfix.error {
   padding-top: 0px;
   padding-bottom: 0px;
