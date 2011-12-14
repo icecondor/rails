@@ -30,7 +30,7 @@ function play_initial_locations() {
 function setup_followers() {
   // following
   for(var username in group) {
-    iceCondor.emit({ type: 'follow', username: username});
+    iceCondor.api({ type: 'follow', username: username});
   }
 
   iceCondor.on('location', dispatch)

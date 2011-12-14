@@ -7,7 +7,7 @@ var iceCondor = {
     this.io.on('dispatch', function(msg){self.dispatch(self,msg)})
   },
 
-  emit: function(data) {
+  api: function(data) {
     this.io.emit('api', data)
   },
 

@@ -22,6 +22,7 @@ function login_callback(data, status) {
 
 function login_password(email, password) {
   console.log("login_password email:"+email+" password:"+password)
+  iceCondor.api({type:"auth", email:email, password: password})
   $.post('/session', {email: email, password: password}, password_callback)
 }
 
