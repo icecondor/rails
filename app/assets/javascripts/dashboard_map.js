@@ -27,17 +27,13 @@ function play_initial_locations() {
   //map.fitBounds(bounds);
 }
 
-function iostart() {
-  console.log("socketio start")
-  var socketio = io.connect();
-
+function setup_followers() {
   // following
   for(var username in group) {
-    socketio.emit('following', { type: 'follow', username: location.username});
+    iceCondor.emit({ type: 'follow', username: username});
   }
 
-  socketio.on('update', dispatch)
-  socketio.on('disconnect', disconnect)
+  iceCondor.on('location', dispatch)
 }
 
 function disconnect() {
