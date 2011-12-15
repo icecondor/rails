@@ -2,33 +2,31 @@
   $('.topbar .nav #developers').addClass('active')
 </script>
 
+<h2>
+WebSockets API
+</h2>
+
 <p>
-Streaming API
+The API for icecondor is based on JSON messages over a websockets connection.
 </p>
 
 <p>
-The API for icecondor is based on passing JSON messages back and forth over a TCP connection.
-</p>
-
-<p>
-The first step is to open TCP port 2020 on api.icecondor.com. The server will acknowledge the connection with a hello message.
+The first step is to open wss://api.icecondor.com. The server will acknowledge the connection with a hello message.
 </p>
 
 <pre>
-$ netcat api.icecondor.com 2020
-{"type":"hello","version":"0.2"}
-
+$ ./ws-client.js wss://api.icecondor.com
+opening wss://api.icecondor.com
+<span style="font-weight:bold">{"type":"hello","version":"0.2"}</span>
 </pre>
 
 <p>
-The most frequent operation is to get real-time updates for a particular user. Here is an example. Messages from the client to the server are in bold.
+The most frequent operation is to get real-time updates for a particular user. Here is an example. The server response is in bold.
 </p>
 
 <pre>
-$ netcat api.icecondor.com 2020
-{"type":"hello","version":"0.2"}
-<span style="font-weight:bold">{"type":"follow","username":"iss"} </span>
-{"_id":"ebab0e45aa867148cb655dc1aba7b9ac","_rev":"1-64d7d93db8865dec04e4ad0702c969c6","type":"location","username":"iss","date":"2011-12-09T18:56:59.558Z","position":{"latitude":49.59823828074799,"longitude":106.35512952869465}}
+{"type":"follow","username":"iss"}
+<span style="font-weight:bold">{"_id":"ebab0e45aa867148cb655dc1aba7b9ac","_rev":"1-64d7d93db8865dec04e4ad0702c969c6","type":"location","username":"iss","date":"2011-12-09T18:56:59.558Z","position":{"latitude":49.59823828074799,"longitude":106.35512952869465}}</span>
 </pre>
 
 Location messages are sent as soon as IceCondor receives a position update for the users being followed. The location message in the previous example is reformatted here for easier reading.
