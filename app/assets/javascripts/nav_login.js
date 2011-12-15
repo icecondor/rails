@@ -40,7 +40,8 @@ function password_callback(data) {
 }
 
 function login_verify() {
-  $.get('/session', function(data) {
+  var msg = {type: "auth", oauth_token: current_user.oauth_token}
+  iceCondor.api(msg, function(data) {
     if (data.status == "OK") {
       login_success(data.user) 
     }
@@ -96,6 +97,7 @@ function signup_callback(data, status, form) {
 
 function login_success(user) {
   console.log(user)
+  current_user = user
   $(".topbar #signing_in").hide()
   $(".topbar #signin_password").hide()
   $(".topbar #logged_in .username").html(user.username)
