@@ -1,8 +1,21 @@
 class SessionsController < ApplicationController
   def create
     email = params[:email]
+    token = params[:oauth_token]
     response = {}
-    user = User.find_by_email(email)
+    if email
+      user = User.find_by_email(email)
+    end
+    if token
+      user = User.find_by_oauth_token(token)
+      if user
+        session[:logged_in_user] = user.username
+        response.merge!(:status => "OK", :user => user)
+        render :json => response
+        return # holy cow refactor
+      end
+    end
+
     if user
       if params[:password].nil?
         response.merge!(:status => "NEEDPASS")

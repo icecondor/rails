@@ -10,6 +10,8 @@
   <script>
     current_user = {}
     iceCondor.setup();
+    iceCondor.on('auth', auth_callback)
+    login_verify();    
   </script>
 </head>
 

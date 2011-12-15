@@ -22,29 +22,33 @@ function login_callback(data, status) {
 
 function login_password(email, password) {
   console.log("login_password email:"+email+" password:"+password)
-  iceCondor.on('auth', password_callback)
   iceCondor.api({type:"auth", email:email, password: password})
 }
 
-function password_callback(data) {
-  console.log("password_callback")
+function auth_callback(data) {
+  console.log("auth_callback")
   console.log(data)
   if (data.status == "OK") {
     $.colorbox.close();
+    $.post('/session', {oauth_token: data.user.oauth_token})
     login_success(data.user) 
   }
   if (data.status == "BADPASS") {
     $('#full-login-password-err').html(' - Wrong')
     $('#full-login-password-row').addClass('error')
   }
+  if (data.status == "NOLOGIN") {
+    logout_callback()
+  }
 }
 
 function login_verify() {
-  var msg = {type: "auth", oauth_token: current_user.oauth_token}
-  iceCondor.api(msg, function(data) {
+  console.log('login_verify')
+  $.get('/session', function(data) {
     if (data.status == "OK") {
-      login_success(data.user) 
-    }
+      login_success(data.user)
+      iceCondor.api({type: "auth", oauth_token: data.user.oauth_token})
+     }
     if (data.status == "NOLOGIN") {
       logout_callback()
     }

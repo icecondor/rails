@@ -8,6 +8,9 @@ var iceCondor = {
   },
 
   api: function(data) {
+    /* todo: one-shot callback */
+    console.log('iceCondor.api')
+    console.log(data)
     this.io.emit('api', data)
   },
 
