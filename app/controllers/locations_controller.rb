@@ -3,7 +3,7 @@ class LocationsController < ApplicationController
     user = User.find_by_oauth_token(params[:oauth_token])
     if user
       # translate from v1 Location to v2 Location
-      location = Location.v1create(params)
+      location = Location.v1create(params[:location], params[:client])
 
       # assign ownership
       location.username = user.username

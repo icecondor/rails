@@ -2,7 +2,11 @@ class Location < CouchRest::Model::Base
   property :date, Time
   property :position, Position
   property :username, String
-  property :batterylevel, Float
+  property :battery_level, Float
+  property :provider, String
+  property :heading, Float
+  property :velocity, Float
+  property :client, Client
   timestamps!
 
   validates :username, :presence => true
@@ -37,12 +41,16 @@ class Location < CouchRest::Model::Base
     last.map{|l| find(l.id)}
   end
 
-  def self.v1create(v1)
+  def self.v1create(v1, client)
     new({:date => v1[:timestamp],
          :battery_level => v1[:batterylevel],
          :provider => v1[:provider],
+         :heading => v1[:heading],
+         :velocity => v1[:velocity],
          :position => {:latitude => v1[:latitude],
                        :longitude => v1[:longitude],
-                       :accuracy => v1[:accuracy]}})
+                       :accuracy => v1[:accuracy],
+                       :altitude => v1[:altitude]},
+         :client => {:version => client[:version]}})
   end
 end
