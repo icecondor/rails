@@ -109,7 +109,9 @@ function short_date(then, now) {
     var monthNames = [ "Jan", "Feb", "Mar", "Apr", "May", "Jun",
     "Jul", "Aug", "Sep", "Oct", "Nov", "Dec" ];
 
-    var hours = then.getHours(), ampm = "am";
+    var hours = then.getHours(), 
+        minutes = then.getMinutes(),
+        ampm = "am";
     if (hours >= 12) {
       ampm = "pm"
     }
@@ -119,11 +121,14 @@ function short_date(then, now) {
     /*if (hours < 10) {
       hours = "0"+hours
     }*/
+    if(minutes < 10) {
+      minutes = "0"+minutes
+    }
 
     if ((now-then) > (1000*60*60*24)) {
       return monthNames[then.getMonth()]+" "+then.getDate()
     } else {
-      return hours+":"+then.getMinutes()+ampm
+      return hours+":"+minutes+ampm
     }
 }
 
