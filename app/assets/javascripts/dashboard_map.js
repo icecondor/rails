@@ -54,6 +54,7 @@ function update_position(msg) {
   var localtime = new Date(msg.date);
   var words = short_date(localtime, new Date())
   $('#'+msg.username+'-date').html(words)
+  $('#'+msg.username+'-date').attr("title",""+localtime)
   bounds.extend(new_point);
 }
 
@@ -115,9 +116,9 @@ function short_date(then, now) {
     if (hours > 12) {
       hours = hours-12;
     }
-    if (hours < 10) {
+    /*if (hours < 10) {
       hours = "0"+hours
-    }
+    }*/
 
     if ((now-then) > (1000*60*60*24)) {
       return monthNames[then.getMonth()]+" "+then.getDate()
