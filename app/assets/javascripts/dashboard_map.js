@@ -52,8 +52,8 @@ function update_position(msg) {
                                          msg.position.longitude);
   marker.setPosition(new_point);
   var localtime = new Date(msg.date);
-  var ago_words = ago(localtime, new Date())
-  $('#'+msg.username+'-date').html(ago_words)
+  var words = short_date(localtime, new Date())
+  $('#'+msg.username+'-date').html(words)
   bounds.extend(new_point);
 }
 
@@ -102,6 +102,24 @@ function str_to_idx(str, count) {
     num = num * str.charCodeAt(i)
   }
   return num % count
+}
+
+function short_date(then, now) {
+    var monthNames = [ "Jan", "Feb", "Mar", "Apr", "May", "Jun",
+    "Jul", "Aug", "Sep", "Oct", "Nov", "Dec" ];
+
+    var hours = then.getHours(), ampm = "am";
+    if (hours >= 12) {
+      ampm = "pm"
+    }
+    if (hours > 12) {
+      hours = hours-12;
+    }
+    if (hours < 10) {
+      hours = "0"+hours
+    }
+
+    return monthNames[then.getMonth()]+" "+then.getDate()+" "+ hours+":"+then.getMinutes()+ampm
 }
 
 function ago(then, now) {
