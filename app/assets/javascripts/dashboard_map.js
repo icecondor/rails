@@ -51,7 +51,9 @@ function update_position(msg) {
   var new_point = new google.maps.LatLng(msg.position.latitude, 
                                          msg.position.longitude);
   marker.setPosition(new_point);
-  $('#'+msg.username+'-date').html(msg.date)
+  var localtime = new Date(msg.date);
+  var ago_words = ago(localtime, new Date())
+  $('#'+msg.username+'-date').html(ago_words)
   bounds.extend(new_point);
 }
 
@@ -95,4 +97,21 @@ function str_to_idx(str, count) {
     num = num * str.charCodeAt(i)
   }
   return num % count
+}
+
+function ago(then, now) {
+  var seconds = (now - then)/1000;
+  var quantity, unit;
+  if(seconds < 60) {
+    unit = "seconds";
+    quantity = seconds
+  } else if (seconds < (60*60)) {
+    unit = "mins"
+    quantity = seconds/60
+  } else  {
+    quantity = seconds/(60*60)
+    unit = "hours"
+  }
+  var rounded_quantity = Math.floor(quantity*10)/10
+  return ""+rounded_quantity+" "+unit;
 }
