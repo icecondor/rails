@@ -119,7 +119,11 @@ function short_date(then, now) {
       hours = "0"+hours
     }
 
-    return monthNames[then.getMonth()]+" "+then.getDate()+" "+ hours+":"+then.getMinutes()+ampm
+    if ((now-then) > (1000*60*60*24)) {
+      return monthNames[then.getMonth()]+" "+then.getDate()
+    } else {
+      return hours+":"+then.getMinutes()+ampm
+    }
 }
 
 function ago(then, now) {
