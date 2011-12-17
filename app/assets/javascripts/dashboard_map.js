@@ -65,6 +65,11 @@ function add_user_ui(username) {
     UserName: username, TimeAgo: "", ImageUrl: user.marker_image_url
   };
   $('#trackedlist').append($("#trackedUserTemplate").render(fields));
+  $('#'+username+'-link').click(function(){center_on_username(username); return false})
+}
+
+function center_on_username(username) {
+  map.setCenter(group[username].marker.getPosition());
 }
 
 function make_marker() {

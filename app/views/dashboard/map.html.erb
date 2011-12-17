@@ -29,7 +29,7 @@ $(function() {
     <p id="publicupdates">
       <span id="titlelist">Recent Public Updates</span>
     <table id="trackedlist">
-      <tr><td></td><td>Username</td><td>Last report</td></tr>
+      <tr><td></td><td>Username</td><td>Position age</td></tr>
     </table>
     </p>
   </div>
@@ -42,7 +42,7 @@ $(function() {
 <script id="trackedUserTemplate" type="text/x-jquery-tmpl">
   <tr>
     <td><img class="markerprofile" src="{{=ImageUrl}}" /></td>
-    <td><a href="/{{=UserName}}">{{=UserName}}</a></td>
+    <td><a id='{{=UserName}}-link' href="#">{{=UserName}}</a></td>
     <td id='{{=UserName}}-date'>{{=TimeAgo}} </td>
   </tr>
 </script>
