@@ -100,7 +100,7 @@ function pick_icons() {
 
 function marker_icon_for(user, default_filename) {
   var marker_name = user.marker_image_filename
-  if(marker_name === null) {
+  if((marker_name === null) || (typeof marker_name == "undefined")) {
     marker_name = default_filename;
   }
   return "/assets/mapmarkers/"+marker_name
