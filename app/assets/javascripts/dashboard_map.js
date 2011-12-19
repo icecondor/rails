@@ -93,7 +93,12 @@ function pick_icons() {
   var usernames = []
   for(var username in group) {usernames.push(username)};
   for(var i=0,len=usernames.length; i < len; i++) {
-    group[usernames[i]].marker_image_url = "/assets/mapmarkers/"+images[i]+".png"
+    var user = group[usernames[i]]
+    var marker_name = user.marker_image_url
+    if(typeof marker_name == "undefined") {
+      marker_name = images[i]+".png";
+    }
+    user.marker_image_url = "/assets/mapmarkers/"+marker_name
   }
 }
 
