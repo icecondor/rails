@@ -62,7 +62,8 @@ function update_position(msg) {
   var words = short_date(localtime, new Date())
   $('#'+msg.username+'-date').html(words)
   $('#'+msg.username+'-date').attr("title",""+localtime)
-  bounds.extend(new_point);
+  
+  user.line.getPath().push(new_point)
 }
 
 function add_user_ui(username) {
@@ -72,6 +73,7 @@ function add_user_ui(username) {
   };
   $('#trackedlist').append($("#trackedUserTemplate").render(fields));
   $('#'+username+'-link').click(function(){center_on_username(username); return false})
+  user.line = new google.maps.Polyline({map:map, strokeWeight: 1})
 }
 
 function center_on_username(username) {
