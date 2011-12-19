@@ -21,9 +21,11 @@ function define_group_ui() {
 
 function play_initial_locations() {
   console.log("playing initial locations")
-  initial_locations.forEach(function(location) {
-    update_position(location)
-  })
+  for(var username in group) {
+    var user = group[username];
+    var locations = user.locations;
+    locations.forEach(function(location){update_position(location)})
+  }
   //map.fitBounds(bounds);
 }
 
@@ -47,7 +49,12 @@ function dispatch(msg) {
 }
 
 function update_position(msg) {
-  var marker = group[msg.username].marker;
+  var user = group[msg.username];
+  var marker = make_marker();
+  user.last_marker = marker;
+  user.markers.push(marker);
+  marker.setIcon(make_icon(user.marker_image_url));
+
   var new_point = new google.maps.LatLng(msg.position.latitude, 
                                          msg.position.longitude);
   marker.setPosition(new_point);
@@ -60,8 +67,6 @@ function update_position(msg) {
 
 function add_user_ui(username) {
   var user = group[username];
-  user.marker = make_marker();
-  user.marker.setIcon(make_icon(user.marker_image_url));
   var fields = {
     UserName: username, TimeAgo: "", ImageUrl: user.marker_image_url
   };
@@ -70,7 +75,7 @@ function add_user_ui(username) {
 }
 
 function center_on_username(username) {
-  map.setCenter(group[username].marker.getPosition());
+  map.setCenter(group[username].last_marker.getPosition());
 }
 
 function make_marker() {

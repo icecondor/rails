@@ -37,7 +37,7 @@ class Location < CouchRest::Model::Base
   end
 
   def self.last_for(user, count=1)
-    last = by_username_and_date.startkey([user]).endkey([user,Time.now.utc]).descending.limit(count).rows
+    last = by_username_and_date.startkey([user]).endkey([user,Time.now.utc]).limit(count).rows
     last.map{|l| find(l.id)}
   end
 
