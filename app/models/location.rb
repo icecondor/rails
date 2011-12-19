@@ -11,6 +11,8 @@ class Location < CouchRest::Model::Base
 
   validates :username, :presence => true
 
+  view_by :username
+  
   design do
     view :last_report_for_users,
          :map => "function(doc) {
