@@ -94,14 +94,17 @@ function pick_icons() {
   for(var username in group) {usernames.push(username)};
   for(var i=0,len=usernames.length; i < len; i++) {
     var user = group[usernames[i]]
-    var marker_name = user.marker_image_url
-    if(typeof marker_name == "undefined") {
-      marker_name = images[i]+".png";
-    }
-    user.marker_image_url = "/assets/mapmarkers/"+marker_name
+    user.marker_image_url = marker_icon_for(user, images[i]+".png")
   }
 }
 
+function marker_icon_for(user, default_filename) {
+  var marker_name = user.marker_image_filename
+  if(marker_name === null) {
+    marker_name = default_filename;
+  }
+  return "/assets/mapmarkers/"+marker_name
+}
 function make_icon(url) {
   var size = new google.maps.Size(32,32)
   var scaled_size = new google.maps.Size(20,20)

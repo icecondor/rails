@@ -1,6 +1,7 @@
 class User < CouchRest::Model::Base
   property :username, String
   property :profile_image_url, String
+  property :marker_image_filename, String
   property :email, String
   property :password, String
   property :oauth_token, String
