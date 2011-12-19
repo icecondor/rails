@@ -52,9 +52,15 @@ function update_position(msg) {
   var user = group[msg.username];
   var marker = make_marker();
   user.last_marker = marker;
-  user.markers.push(marker);
   marker.setIcon(make_icon(user.marker_image_url));
-
+  if(user.markers.length > 0) {
+    var icon_name = msg.provider
+    if((icon_name === null) || (typeof(icon_name) == "undefined")) {
+      icon_name = "api"
+    }
+    user.markers[user.markers.length-1].setIcon(make_icon("/assets/mapmarkers/"+icon_name+".png"))
+  }
+  user.markers.push(marker);
   var new_point = new google.maps.LatLng(msg.position.latitude, 
                                          msg.position.longitude);
   marker.setPosition(new_point);
