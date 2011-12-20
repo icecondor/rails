@@ -95,7 +95,6 @@ function make_marker() {
 
 function pick_icons() {
   var images = ["mm_20_yellow", "mm_20_blue", "mm_20_red", "mm_20_white"]
-  //var images = ["mm_20_yellow", "mm_20_blue", "mm_20_white"]
   var usernames = []
   for(var username in group) {usernames.push(username)};
   for(var i=0,len=usernames.length; i < len; i++) {
@@ -112,9 +111,7 @@ function marker_icon_for(user, default_filename) {
   return "/assets/mapmarkers/"+marker_name
 }
 function make_icon(url) {
-  var size = new google.maps.Size(12,20)
-  var scaled_size = new google.maps.Size(20,20)
-  var marker_image = new google.maps.MarkerImage(url, size, null, null, size);
+  var marker_image = new google.maps.MarkerImage(url);
   return marker_image
 }
 
