@@ -78,7 +78,7 @@ function add_user_ui(username) {
     UserName: username, TimeAgo: "", ImageUrl: user.marker_image_url
   };
   $('#trackedlist').append($("#trackedUserTemplate").render(fields));
-  $('#'+username+'-link').click(function(){center_on_username(username); return false})
+  $('#'+username+'-profile .marker').click(function(){center_on_username(username); return false})
   user.line = new google.maps.Polyline({map:map, strokeWeight: 1})
 }
 

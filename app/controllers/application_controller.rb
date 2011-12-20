@@ -6,7 +6,7 @@ class ApplicationController < ActionController::Base
   before_filter :auth
 
   def auth    
-    logger.info("trying to login: #{session[:logged_in_user]}")
+    logger.info("session logged_in_user #{session[:logged_in_user]}")
     login(session[:logged_in_user])
   end
 

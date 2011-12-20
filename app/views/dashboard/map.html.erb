@@ -39,9 +39,9 @@ $(function() {
 <div id="map_canvas" style="width: 100%; height: 500px; margin-left:auto; margin-right: auto"></div>
 
 <script id="trackedUserTemplate" type="text/x-jquery-tmpl">
-  <tr>
-    <td><img class="markerprofile" src="{{=ImageUrl}}" /></td>
-    <td><a id='{{=UserName}}-link' href="#">{{=UserName}}</a></td>
+  <tr id='{{=UserName}}-profile'>
+    <td><img class="marker" src="{{=ImageUrl}}" /></td>
+    <td><a id='{{=UserName}}-link' href="/{{=UserName}}">{{=UserName}}</a></td>
     <td id='{{=UserName}}-date'>{{=TimeAgo}} </td>
   </tr>
 </script>
