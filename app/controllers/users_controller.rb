@@ -15,4 +15,12 @@ class UsersController < ApplicationController
     end
     render :json => response
   end
+
+  def show
+    @user = User.find_by_username(params[:username])
+    unless @user
+      flash[:error] = "user \"#{params[:username]}\" is unknown"
+      redirect_to root_path
+    end
+  end
 end

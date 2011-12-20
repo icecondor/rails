@@ -1,3 +1,5 @@
-    <div class="alert-message" style="display:none" id="nav-alert">
-    <p></p>
+  <% if flash[:error] %>
+    <div class="alert-message error" style="text-align:center" id="nav-alert">
+    <p><%=flash[:error]%></p>
     </div>
+  <% end %>
