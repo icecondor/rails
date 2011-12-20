@@ -8,5 +8,6 @@ Icecondor::Application.routes.draw do
   match "/dashboard/developers" => "dashboard#developers"
   match "/dashboard/signup" => "dashboard#signup"
   
+  match "/:username" => "users#show"
   root :to => 'dashboard#map'
 end
