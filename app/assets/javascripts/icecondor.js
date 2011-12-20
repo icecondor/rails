@@ -21,5 +21,9 @@ var iceCondor = {
   dispatch: function(self, msg) {
     var callback = this.callbacks[msg.type]
     if (callback) { callback(msg) }
-  }
+  },
+
+  connect: function (callback) {
+    this.io.on('connect', callback)
+  },
 }
