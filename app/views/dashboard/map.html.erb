@@ -40,8 +40,8 @@ $(function() {
 
 <script id="trackedUserTemplate" type="text/x-jquery-tmpl">
   <tr id='{{=UserName}}-profile'>
-    <td><img class="marker" src="{{=ImageUrl}}" /></td>
-    <td><a id='{{=UserName}}-link' href="/{{=UserName}}">{{=UserName}}</a></td>
+    <td><img class="marker profilelink" src="{{=ImageUrl}}" /></td>
+    <td><a class="profilelink" href="/{{=UserName}}">{{=UserName}}</a></td>
     <td id='{{=UserName}}-date'>{{=TimeAgo}} </td>
   </tr>
 </script>
