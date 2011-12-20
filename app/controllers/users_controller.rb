@@ -21,6 +21,7 @@ class UsersController < ApplicationController
     unless @user
       flash[:error] = "user \"#{params[:username]}\" is unknown"
       redirect_to root_path
+      return
     end
   end
 end

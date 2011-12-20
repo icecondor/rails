@@ -30,6 +30,16 @@ class Location < CouchRest::Model::Base
          :reduce => "function(keys, values, rereduce) {
               return sum(values);
            }"          
+
+    view :by_username,
+         :map => "function(doc) {
+             if(doc.type == 'location') {
+               emit(doc.username,1);
+             }
+           }",
+         :reduce => "function(keys, values, rereduce) {
+              return sum(values);
+           }"          
   end
 
   def self.last_users
@@ -39,6 +49,10 @@ class Location < CouchRest::Model::Base
   def self.last_for(user, count=1)
     last = by_username_and_date.startkey([user]).endkey([user,Time.now.utc]).descending.limit(count).rows.reverse
     last.map{|l| find(l.id)}
+  end
+
+  def self.count_for(username)
+    by_username.key(username).reduce.rows.first["value"]
   end
 
   def self.v1create(v1, client)
