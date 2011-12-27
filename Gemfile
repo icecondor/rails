@@ -9,7 +9,7 @@ gem 'rails', '3.1.3'
 gem 'couchrest_model', '~> 1.1.0'
 gem 'sqlite3' # to keep ActiveRecord happy
 gem 'omniauth'
-
+gem 'oauth2'
 
 # Gems used only for assets and not required
 # in production environments by default.
