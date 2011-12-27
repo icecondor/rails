@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Icecondor</title>
+  <%= stylesheet_link_tag "bare" %>
+  <%= stylesheet_link_tag "bootstrap.min" %>
+  <%= csrf_meta_tags %>
+  <%= yield :header %>
+</head>
+
+
+<body id="body">
+  <%= render :partial => "layouts/alert" %>
+
+  <div class="container">
+    <%= yield %>
+
+  </div>
+</body>
+
+</html>

@@ -73,25 +73,7 @@
       </div>
     </div>
     <div style="display:none">
-      <div id="full-login-form">
-        <p class="title">
-          <img src="/assets/icon-64x64.png" /> Sign in
-        <p>
-        <form class="form-stacked">
-          <div class="clearfix input-append" id="full-login-email-row">
-             <label for="full-login-email">Email Address <span id="full-login-email-err"/></label>
-             <input type="email" name="email" id="full-login-email"> 
-          </div>
-          <div class="clearfix input-append" id="full-login-password-row">
-             <label for="full-login-password">Password <span id="full-login-password-err"/></label> 
-             <input type="password" name="password" id="full-login-password"> 
-          </div>
-          <div class="">
-            <input type="submit" value="Login">
-          </div>
-
-        </form>      
-      </div>
+      <%= render :partial => "layouts/login_form" %>
     </div>
 
     <script>
