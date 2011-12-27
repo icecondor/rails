@@ -1,5 +1,5 @@
 class MobileController < ApplicationController
-  layout "bare"
+  layout "mobile"
 
   def login_form
     if params[:email]
