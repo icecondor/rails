@@ -1,6 +1,6 @@
 class Oauth2Controller < ApplicationController
   # hardcoded android oauth2 client
-  CLIENTS = [{:id => "ic", :secret => ""}]
+  CLIENTS = [{:id => "icecondor-nest", :secret => ""}]
 
   def authorize
     if CLIENTS.map{|h|h[:id]}.include?(params[:client_id])
