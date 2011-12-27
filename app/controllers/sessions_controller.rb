@@ -1,4 +1,5 @@
 class SessionsController < ApplicationController
+  # morph this into oauth2/authorize
   def create
     email = params[:email]
     token = params[:oauth_token]
@@ -22,7 +23,13 @@ class SessionsController < ApplicationController
       else
         if params[:password] == user.password
           session[:logged_in_user] = user.username
-          response.merge!(:status => "OK", :user => user)
+          if params[:redirect_uri]
+            response = URI.parse(params[:redirect_uri])
+            # redirect with token? use fragment?
+            response.query = [response.query,"token="+user.oauth_token].select{|e| e}.join('&')
+          else
+            response.merge!(:status => "OK", :user => user)
+          end
         else
           logger.info("given: #{params[:password]} recorded:#{user.password}")
           response.merge!(:status => "BADPASS")
@@ -31,7 +38,12 @@ class SessionsController < ApplicationController
     else
       response.merge!(:status => "NOTFOUND", :email => email)
     end
-    render :json => response
+
+    if response.is_a?(URI)
+      redirect_to response.to_s
+    else
+      render :json => response
+    end
   end
 
   def show
