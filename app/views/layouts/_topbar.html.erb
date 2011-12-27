@@ -49,28 +49,7 @@
     </div>
 
     <div style="display:none">
-      <div id="signup_form">
-        <p class="title">
-          <img src="/assets/icon-64x64.png" /> Sign up
-        <p>
-        <form class="form-stacked">
-          <div class="clearfix input-append" id="signup-email-row">
-             <label for="signup-email">Email Address <span id="signup-email-err"/></label>
-             <input type="email" name="email" id="signup-email"> 
-          </div>
-          <div class="clearfix input-append" id="signup-username-row">
-             <label for="signup-username">Username <span id="signup-username-err"/></label> 
-             <input type="text" name="username" id="signup-username"> 
-          </div>
-          <div class="clearfix input-append">
-             <label for="signup-password">Password</label> 
-             <input type="password" name="password" id="signup-password"> 
-          </div>
-          <div class="">
-            <input type="submit" value="Sign-Up">
-          </div>
-        </form>
-      </div>
+      <%= render :partial => "layouts/signup_form" %>
     </div>
     <div style="display:none">
       <%= render :partial => "layouts/login_form" %>

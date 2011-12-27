@@ -5,7 +5,7 @@
           <p> Please enter your email address and 
               we'll look up your account or sign you up. </p>
         <div>
-        <form class="form-stacked">
+        <form class="form-stacked" id="login-form">
           <div class="clearfix input-append" id="full-login-email-row">
              <label for="full-login-email">Email Address <span id="full-login-email-err"/></label>
              <input type="email" name="email" id="full-login-email"> 
@@ -16,3 +16,6 @@
 
         </form>      
       </div>
+<script>
+document.forms["login-form"].elements['full-login-email'].focus();
+</script>

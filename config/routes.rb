@@ -12,6 +12,7 @@ Icecondor::Application.routes.draw do
   match "/oauth2/token" => "oauth2#token"
 
   match "/mobile/login" => "mobile#login_form"
+  match "/mobile/signup" => "mobile#signup"
   
   match "/:username" => "users#show"
   root :to => 'dashboard#map'
