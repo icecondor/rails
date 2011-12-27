@@ -26,7 +26,9 @@ class SessionsController < ApplicationController
           if params[:redirect_uri]
             response = URI.parse(params[:redirect_uri])
             # redirect with token? use fragment?
-            response.query = [response.query,"token="+user.oauth_token].select{|e| e}.join('&')
+            response.query = [response.query,
+                              "access_token="+user.oauth_token,
+                              "token_type=bearer"].select{|e| e}.join('&')
           else
             response.merge!(:status => "OK", :user => user)
           end
