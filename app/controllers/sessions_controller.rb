@@ -34,8 +34,14 @@ class SessionsController < ApplicationController
             response.merge!(:status => "OK", :user => user)
           end
         else
-          logger.info("given: #{params[:password]} recorded:#{user.password}")
-          response.merge!(:status => "BADPASS")
+          if params[:error_uri]
+            response = URI.parse(params[:error_uri])
+            response.query = "email="+params[:email]
+            flash[:bad_password] = "incorrect"
+          else
+            logger.info("given: #{params[:password]} recorded:#{user.password}")
+            response.merge!(:status => "BADPASS")
+          end
         end
       end
     else
