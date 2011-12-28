@@ -27,16 +27,16 @@ class SessionsController < ApplicationController
             response = URI.parse(params[:redirect_uri])
             # redirect with token? use fragment?
             response.query = [response.query,
-                              "access_token="+user.oauth_token,
+                              "access_token="+URI.encode(user.oauth_token),
                               "token_type=bearer",
-                              "email="+user.email].select{|e| e}.join('&')
+                              "email="+URI.encode(user.email)].select{|e| e}.join('&')
           else
             response.merge!(:status => "OK", :user => user)
           end
         else
           if params[:error_uri]
             response = URI.parse(params[:error_uri])
-            response.query = "email="+params[:email]
+            response.query = "email="+URI.encode(params[:email])
             flash[:bad_password] = "incorrect"
           else
             logger.info("given: #{params[:password]} recorded:#{user.password}")

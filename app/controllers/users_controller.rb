@@ -22,10 +22,16 @@ class UsersController < ApplicationController
     end
     if params[:redirect_uri]
       if response[:status] == "OK"
-        redirect_to params[:redirect_uri]
+        ok_uri = URI.parse(params[:redirect_uri])
+        ok_uri.query = [ok_uri.query,
+                          "access_token="+URI.encode(user.oauth_token),
+                          "token_type=bearer",
+                          "email="+URI.encode(user.email)].select{|e| e}.join('&')        
+        redirect_to ok_uri.to_s
       else
         err_uri = URI.parse(params[:error_uri])
-        err_uri.query = "email="+params[:user][:email]+"&username="+params[:user][:username]
+        err_uri.query = "email="+URI.encode(params[:user][:email])+
+                        "&username="+URI.encode(params[:user][:username])
         redirect_to err_uri.to_s
       end
     else
