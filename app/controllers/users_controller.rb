@@ -9,11 +9,27 @@ class UsersController < ApplicationController
       logger.info("created #{user.inspect}")
       response.merge!({:status => "OK", :user => user})
     else
-      response.merge!({:email => "TAKEN"}) if u_e
-      response.merge!({:username => "TAKEN"}) if u_u
+      if u_e
+        response.merge!({:email => "TAKEN"}) 
+        flash[:email_taken]="already in use."
+      end
+      if u_u
+        response.merge!({:username => "TAKEN"})
+        flash[:username_taken]="already in use."
+      end
       response.merge!({:status => "ERR"})
     end
-    render :json => response
+    if params[:redirect_uri]
+      if response[:status] == "OK"
+        redirect_to params[:redirect_uri]
+      else
+        err_uri = URI.parse(params[:error_uri])
+        err_uri.query = "email="+params[:user][:email]+"&username="+params[:user][:username]
+        redirect_to err_uri.to_s
+      end
+    else
+      render :json => response
+    end
   end
 
   def show

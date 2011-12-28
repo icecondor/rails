@@ -2,19 +2,25 @@
         <p class="title">
           <img src="/assets/icon-64x64.png" /> Sign up
         <p>
-        <form class="form-stacked" id="signup-form">
+        <form class="form-stacked" id="signup-form" action="/users" method="POST">
           <div class="clearfix input-append" id="signup-email-row">
-             <label for="signup-email">Email Address <span id="signup-email-err"/></label>
-             <input type="email" name="email" id="signup-email" value="<%= params[:email]%>"> 
+             <label for="signup-email">Email Address 
+                      <span id="signup-email-err"><%=flash[:email_taken]%></span></label>
+             <input type="email" name="user[email]" id="signup-email" value="<%= params[:email]%>"> 
           </div>
           <div class="clearfix input-append" id="signup-username-row">
-             <label for="signup-username">Username <span id="signup-username-err"/></label> 
-             <input type="text" name="username" id="signup-username"> 
+             <label for="signup-username">Username 
+                        <span id="signup-username-err"><%=flash[:username_taken]%></span>
+                        </label> 
+             <input type="text" name="user[username]" id="signup-username" value="<%= params[:username]%>"> 
           </div>
           <div class="clearfix input-append">
-             <label for="signup-password">Password</label> 
-             <input type="password" name="password" id="signup-password"> 
+             <label for="signup-password">Password </label> 
+             <input type="password" name="user[password]" id="signup-password"> 
           </div>
+          <input type="hidden" name="redirect_uri" value="icecondor://android/">
+          <input type="hidden" name="error_uri" value="/mobile/signup">
+
           <div class="">
             <input type="submit" value="Sign-Up">
           </div>
