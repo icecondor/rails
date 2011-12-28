@@ -1,4 +1,5 @@
 class UsersController < ApplicationController
+
   def create
     u_e = User.find_by_email(params[:user][:email])
     u_u = User.find_by_username(params[:user][:username])
@@ -23,10 +24,7 @@ class UsersController < ApplicationController
     if params[:redirect_uri]
       if response[:status] == "OK"
         ok_uri = URI.parse(params[:redirect_uri])
-        ok_uri.query = [ok_uri.query,
-                          "access_token="+URI.encode(user.oauth_token),
-                          "token_type=bearer",
-                          "email="+URI.encode(user.email)].select{|e| e}.join('&')        
+        ok_uri.query = bearer_token_params(ok_uri, user)
         redirect_to ok_uri.to_s
       else
         err_uri = URI.parse(params[:error_uri])

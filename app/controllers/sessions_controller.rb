@@ -1,4 +1,5 @@
 class SessionsController < ApplicationController
+
   # morph this into oauth2/authorize
   def create
     email = params[:email]
@@ -26,10 +27,7 @@ class SessionsController < ApplicationController
           if params[:redirect_uri]
             response = URI.parse(params[:redirect_uri])
             # redirect with token? use fragment?
-            response.query = [response.query,
-                              "access_token="+URI.encode(user.oauth_token),
-                              "token_type=bearer",
-                              "email="+URI.encode(user.email)].select{|e| e}.join('&')
+            response.query = Oauth2Util.bearer_token_params(response, user)
           else
             response.merge!(:status => "OK", :user => user)
           end
