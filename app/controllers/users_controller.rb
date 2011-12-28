@@ -4,6 +4,7 @@ class UsersController < ApplicationController
     u_u = User.find_by_username(params[:user][:username])
     response = {}
     if u_e.nil? && u_u.nil?
+      params[:user].merge!({:oauth_token => User.generate_token})
       logger.info("creating with #{params[:user].inspect}")
       user = User.create(params[:user])
       logger.info("created #{user.inspect}")

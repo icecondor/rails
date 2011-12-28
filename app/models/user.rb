@@ -15,4 +15,11 @@ class User < CouchRest::Model::Base
   def location_count
     Location.count_for(username)
   end
+
+  def self.generate_token
+    chars = "0123456789ABCDEFGHJKLMNPQRSTUVWXYZ_abcdefghijkmnopqrstuvwxyz"
+    str = ""
+    35.times { str += chars[rand(chars.length)] }
+    return str
+  end
 end
