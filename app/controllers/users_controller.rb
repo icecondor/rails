@@ -24,7 +24,7 @@ class UsersController < ApplicationController
     if params[:redirect_uri]
       if response[:status] == "OK"
         ok_uri = URI.parse(params[:redirect_uri])
-        ok_uri.query = bearer_token_params(ok_uri, user)
+        ok_uri.query = Oauth2Util.bearer_token_params(ok_uri, user)
         redirect_to ok_uri.to_s
       else
         err_uri = URI.parse(params[:error_uri])
