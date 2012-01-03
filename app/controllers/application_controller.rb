@@ -1,13 +1,16 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery
-  helper MiniAuth
-  include MiniAuth
+  helper MiniAuth # available in views
+  include MiniAuth # available in controllers
 
   before_filter :auth
 
-  def auth    
-    logger.info("session logged_in_user #{session[:logged_in_user]}")
-    login(session[:logged_in_user])
+  def auth
+    username = session[:logged_in_user]
+    if username
+      logger.info("logging in from session: #{username}")
+      login(username)
+    end
   end
 
 end
