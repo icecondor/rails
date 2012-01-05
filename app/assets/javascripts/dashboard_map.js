@@ -23,7 +23,7 @@ function play_initial_locations() {
   console.log("playing initial locations")
   for(var username in group) {
     var user = group[username];
-    var locations = user.locations;
+    var locations = user.initial_locations;
     locations.forEach(function(location){update_position(location)})
   }
   //map.fitBounds(bounds);
@@ -50,26 +50,48 @@ function dispatch(msg) {
 
 function update_position(msg) {
   var user = group[msg.username];
-  var marker = make_marker();
-  user.last_marker = marker;
-  marker.setIcon(make_icon(user.marker_image_url));
-  if(user.markers.length > 0) {
-    var icon_name = msg.provider
-    if((icon_name === null) || (typeof(icon_name) == "undefined")) {
-      icon_name = "api"
+
+  if(newer_than_head(user.locations,msg)) {
+    user.locations.unshift(msg)
+    var marker = make_marker();
+    user.last_marker = marker;
+    marker.setIcon(make_icon(user.marker_image_url));
+
+    // new icon for old marker
+    if(user.markers.length > 0) {
+      var icon_name = msg.provider
+      if((icon_name === null) || (typeof(icon_name) == "undefined")) {
+        icon_name = "api"
+      }
+      user.markers[0].setIcon(make_icon("/assets/mapmarkers/"+icon_name+".png"))
     }
-    user.markers[user.markers.length-1].setIcon(make_icon("/assets/mapmarkers/"+icon_name+".png"))
+
+    user.markers.unshift(marker);
+
+    var new_point = new google.maps.LatLng(msg.position.latitude, 
+                                           msg.position.longitude);
+    marker.setPosition(new_point);
+    var localtime = new Date(msg.date);
+    var words = short_date(localtime, new Date())
+    $('#'+msg.username+'-date').html(words)
+    $('#'+msg.username+'-date').attr("title",""+localtime)
+    
+    user.line.getPath().push(new_point)
   }
-  user.markers.push(marker);
-  var new_point = new google.maps.LatLng(msg.position.latitude, 
-                                         msg.position.longitude);
-  marker.setPosition(new_point);
-  var localtime = new Date(msg.date);
-  var words = short_date(localtime, new Date())
-  $('#'+msg.username+'-date').html(words)
-  $('#'+msg.username+'-date').attr("title",""+localtime)
-  
-  user.line.getPath().push(new_point)
+}
+
+function newer_than_head(locations, location) {
+  return date_position(locations.map(
+                           function(user){return user.date}), 
+                       location.date) == 0
+}
+
+function date_position(dates, date) {
+  var i=0;
+  for(var len = dates.length; i < len; i++) {
+    if(dates[i] < date) break
+  }
+  return i
 }
 
 function add_user_ui(username) {

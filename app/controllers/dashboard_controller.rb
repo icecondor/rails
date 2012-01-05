@@ -5,7 +5,8 @@ class DashboardController < ApplicationController
     @group = last_usernames.inject({}) do |hash, username|
       user = User.find_by_username(username)
       hash[username] = user || {}
-      hash[username][:locations] = Location.last_for(username, count || 10)
+      hash[username][:locations] = []
+      hash[username][:initial_locations] = Location.last_for(username, count || 10)
       hash[username][:markers] = []
       hash
     end
