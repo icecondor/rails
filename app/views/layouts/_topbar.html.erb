@@ -17,7 +17,7 @@
 
           <span style="display:none" id="logged_in">
             <form id="logout" action="/session" method="delete" class="pull-right">
-              <span  class="username" ></span>
+              <span class="username" ></span>
               <button class="btn" type="submit">Log out</button>
             </form>          
           </span>
@@ -57,6 +57,13 @@
 
     <script>
       $('#signup_form').submit(signup_submit)
-      $('#full-login-form').submit(function(e){login_password(e.target.email.value, e.target.password.value);return false;})
+      $('#full-login-form').submit(function(e){
+                        login_password(e.target.email.value, 
+                                       e.target.password.value);
+                        return false;})
 
     </script>
+
+<script id="loggedInUserTemplate" type="text/x-jquery-tmpl">
+  <a href="{{=url}}">{{=username}}</a>
+</script>

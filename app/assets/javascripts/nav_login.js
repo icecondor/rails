@@ -46,7 +46,6 @@ function login_verify() {
   console.log('login_verify')
   $.get('/session', function(data) {
     if (data.status == "OK") {
-      login_success(data.user)
       iceCondor.api({type: "auth", oauth_token: data.user.oauth_token})
      }
     if (data.status == "NOLOGIN") {
@@ -104,7 +103,10 @@ function login_success(user) {
   current_user = user
   $(".topbar #signing_in").hide()
   $(".topbar #signin_password").hide()
-  $(".topbar #logged_in .username").html(user.username)
+  $(".topbar #logged_in .username").append(
+           $("#loggedInUserTemplate").render({
+                    username: user.username,
+                    url: "/"+user.username}))
   $(".topbar #logged_in").show()
 }
 
@@ -118,5 +120,6 @@ function logout_submit() {
 
 function logout_callback() {
   $(".topbar #logged_in").hide()
-  $(".topbar #signing_in").show()  
+  $(".topbar #signing_in").show()
+  $(".topbar #logged_in .username").empty()
 }
