@@ -16,4 +16,10 @@ class LocationsController < ApplicationController
       render :text => "", :status => 500
     end
   end
+
+  def index
+    count = params[:limit] ? params[:limit].to_i : 1
+    locations = Location.last_for(params[:username], params[:limit])
+    render :json => "#{params[:callback]}(#{locations.to_json})"
+  end
 end
