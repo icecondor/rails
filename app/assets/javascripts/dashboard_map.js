@@ -56,6 +56,7 @@ function update_position(msg) {
                                            msg.position.longitude);
     var marker = make_marker(user, new_point);
     msg.marker = marker
+    marker.setTitle(msg.username)
     var speed = 0;
 
     if(user.locations.length > 0) {
