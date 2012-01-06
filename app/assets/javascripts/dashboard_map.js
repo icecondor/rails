@@ -72,9 +72,10 @@ function update_position(msg) {
 
       // summary
       var accuracy = ""
-      if(msg.position.accuracy) { accuracy = "acc "+msg.position.accuracy+"m"}
+      if(msg.position.accuracy) { accuracy = "acc "+
+                                  Math.floor(last_location.position.accuracy)+"m"}
       var speed_str = Math.floor(speed)+" m/s"
-      last_location.marker.setTitle(msg.provider+" "+accuracy+" "+speed_str)
+      last_location.marker.setTitle(last_location.provider+" "+accuracy+" "+speed_str)
     }
 
     user.locations.unshift(msg);
