@@ -53,30 +53,28 @@ function update_position(msg) {
 
   if(newer_than_head(user.locations,msg)) {
     user.locations.unshift(msg)
-    var marker = make_marker();
-    user.last_marker = marker;
-    marker.setIcon(make_icon(user.marker_image_url));
+    var new_point = new google.maps.LatLng(msg.position.latitude, 
+                                           msg.position.longitude);
+    var marker = make_marker(user, new_point);
 
     // new icon for old marker
     if(user.markers.length > 0) {
+      var last_marker = user.markers[0]
       var icon_name = msg.provider
       if((icon_name === null) || (typeof(icon_name) == "undefined")) {
         icon_name = "api"
       }
-      user.markers[0].setIcon(make_icon("/assets/mapmarkers/"+icon_name+".png"))
+      last_marker.setIcon(make_icon("/assets/mapmarkers/"+icon_name+".png"))
     }
 
     user.markers.unshift(marker);
+    user.line.getPath().push(new_point)
 
-    var new_point = new google.maps.LatLng(msg.position.latitude, 
-                                           msg.position.longitude);
-    marker.setPosition(new_point);
     var localtime = new Date(msg.date);
     var words = short_date(localtime, new Date())
     $('#'+msg.username+'-date').html(words)
     $('#'+msg.username+'-date').attr("title",""+localtime)
     
-    user.line.getPath().push(new_point)
   }
 }
 
@@ -105,13 +103,18 @@ function add_user_ui(username) {
 }
 
 function center_on_username(username) {
-  map.setCenter(group[username].last_marker.getPosition());
+  var user = group[username];  
+  var last_marker = user.markers[0]
+  map.setCenter(last_marker.getPosition());
 }
 
-function make_marker() {
+function make_marker(user, point) {
   var marker = new google.maps.Marker();
   marker.setMap(map);
   marker.setAnimation(google.maps.Animation.DROP);
+  marker.setIcon(make_icon(user.marker_image_url));
+  marker.setPosition(point);
+
   return marker;
 }
 
