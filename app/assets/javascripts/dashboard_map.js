@@ -52,23 +52,38 @@ function update_position(msg) {
   var user = group[msg.username];
 
   if(newer_than_head(user.locations,msg)) {
-    user.locations.unshift(msg)
     var new_point = new google.maps.LatLng(msg.position.latitude, 
                                            msg.position.longitude);
     var marker = make_marker(user, new_point);
+    msg.marker = marker
+    var speed = 0;
 
-    // new icon for old marker
-    if(user.markers.length > 0) {
-      var last_marker = user.markers[0]
-      var icon_name = msg.provider
-      if((icon_name === null) || (typeof(icon_name) == "undefined")) {
-        icon_name = "api"
-      }
-      last_marker.setIcon(make_icon("/assets/mapmarkers/"+icon_name+".png"))
+    if(user.locations.length > 0) {
+      var last_location = user.locations[0]
+
+      // determine speed
+      speed = speed_calc(new Date(last_location.date),
+                         last_location.marker.getPosition(), 
+                         new Date(msg.date),
+                         marker.getPosition())
+      // old positions get subtle marker
+      var icon_name = msg.provider || "api"
+      last_location.marker.setIcon(make_icon("/assets/mapmarkers/"+icon_name+".png"))
+
+      // summary
+      var accuracy = ""
+      if(msg.position.accuracy) { accuracy = "acc "+msg.position.accuracy+"m"}
+      var speed_str = Math.floor(speed)+" m/s"
+      last_location.marker.setTitle(msg.provider+" "+accuracy+" "+speed_str)
     }
 
-    user.markers.unshift(marker);
-    user.line.getPath().push(new_point)
+    user.locations.unshift(msg);
+
+    if (speed < 30) {
+      user.line.getPath().push(new_point)
+    } else {
+      user.line.setPath([])
+    }
 
     var localtime = new Date(msg.date);
     var words = short_date(localtime, new Date())
@@ -92,6 +107,12 @@ function date_position(dates, date) {
   return i
 }
 
+function speed_calc(d1, ll1, d2, ll2) {
+  var seconds = (d2-d1)/1000
+  var meters = google.maps.geometry.spherical.computeDistanceBetween (ll1, ll2);
+  return meters/seconds;
+}
+
 function add_user_ui(username) {
   var user = group[username];
   var fields = {
@@ -104,7 +125,7 @@ function add_user_ui(username) {
 
 function center_on_username(username) {
   var user = group[username];  
-  var last_marker = user.markers[0]
+  var last_marker = user.locations[0].marker
   map.setCenter(last_marker.getPosition());
 }
 
