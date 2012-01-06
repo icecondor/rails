@@ -5,6 +5,7 @@ class User < CouchRest::Model::Base
   property :email, String
   property :password, String
   property :oauth_token, String
+  property :friends, [String]
 
   validates :username, :presence => true
 
