@@ -13,7 +13,8 @@ $(function() {
   mapstart();
   define_group_ui();
   play_initial_locations();
-  iceCondor.connect(setup_followers);
+  iceCondor.on('hello', ic_connected);
+  iceCondor.on('disconnect', ic_disconnected);
 });
 </script>
 

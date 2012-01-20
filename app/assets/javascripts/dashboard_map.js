@@ -29,6 +29,11 @@ function play_initial_locations() {
   //map.fitBounds(bounds);
 }
 
+function ic_connected() {
+  $('.brand img').css('opacity', 1)
+  setup_followers();
+}
+
 function setup_followers() {
   // following
   for(var username in group) {
@@ -38,7 +43,8 @@ function setup_followers() {
   iceCondor.on('location', dispatch)
 }
 
-function disconnect() {
+function ic_disconnected() {
+  $('.brand img').css('opacity', 0.4)
   console.log('disconnect!')
 }
 
