@@ -26,14 +26,15 @@ The most frequent operation is to get real-time updates for a particular user. H
 
 <pre>
 {"type":"follow","username":"iss"}
-<span style="font-weight:bold">{"_id":"ebab0e45aa867148cb655dc1aba7b9ac","_rev":"1-64d7d93db8865dec04e4ad0702c969c6","type":"location","username":"iss","date":"2011-12-09T18:56:59.558Z","position":{"latitude":49.59823828074799,"longitude":106.35512952869465}}</span>
+<span style="font-weight:bold">
+{"type":"follow","username":"iss","status":"OK","message":"following public profile"}
+{"id":"ebab0e45aa867148cb655dc1aba7b9ac","type":"location","username":"iss","date":"2011-12-09T18:56:59.558Z","position":{"latitude":49.59823828074799,"longitude":106.35512952869465}}</span>
 </pre>
 
 Location messages are sent as soon as IceCondor receives a position update for the users being followed. The location message in the previous example is reformatted here for easier reading.
 <pre>
 {
-    "_id": "ebab0e45aa867148cb655dc1aba7b9ac",
-    "_rev": "1-64d7d93db8865dec04e4ad0702c969c6",
+    "id": "ebab0e45aa867148cb655dc1aba7b9ac",
     "type": "location",
     "username": "iss",
     "date": "2011-12-09T18:56:59.558Z",
@@ -42,4 +43,15 @@ Location messages are sent as soon as IceCondor receives a position update for t
         "longitude": 106.35512952869465
     }
 }
+</pre>
+
+<p>
+Some operations require authorization. Registration with the site generates an oauth token. Use the token to authenticate.
+</p>
+
+<pre>
+{"type":"auth", "oauth_token":"iUfD1VNure4rucCOkmA"}
+<span style="font-weight:bold">
+{"type":"auth","status":"OK","user":{"username":"donpdonp","email":"person@example.com","friends":["frontpage","trimet14","iss"],"type":"user","created_at":"2010-08-02T11:01:49Z"}}
+<span>
 </pre>
