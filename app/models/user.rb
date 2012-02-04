@@ -6,6 +6,7 @@ class User < CouchRest::Model::Base
   property :password, String
   property :oauth_token, String
   property :friends, [String]
+  property :mobile_avatar_url, String
 
   validates :username, :presence => true
 
