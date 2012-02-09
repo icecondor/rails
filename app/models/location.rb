@@ -52,7 +52,8 @@ class Location < CouchRest::Model::Base
   end
 
   def self.count_for(username)
-    by_username.key(username).reduce.rows.first["value"]
+    rows = by_username.key(username).reduce.rows
+    rows.length > 0 ? rows.first["value"] : 0
   end
 
   def self.v1create(v1, client)
