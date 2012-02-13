@@ -1,7 +1,11 @@
 function login_submit(email) {
   console.log('login_submit')
-  console.log(email)
-  $.post('/session', {email: email}, login_callback)
+  if(email.length > 0) {
+    console.log(email)
+    $.post('/session', {email: email}, login_callback)
+  } else {
+    $('#login-email').focus();
+  }
 }
 
 function login_callback(data, status) {
