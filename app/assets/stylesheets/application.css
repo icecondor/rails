@@ -36,6 +36,7 @@
 }
 
 .navbar #login-email {
+  margin-top: 5px;
   width: 20em;
 }
 
@@ -101,3 +102,6 @@
   text-align: middle;
 }
 
+#logged_in .username {
+  margin-top: 5px;
+}

@@ -16,24 +16,24 @@
           </a>
 
           <span style="display:none" id="logged_in">
-            <form id="logout" action="/session" method="delete" class="pull-right">
+            <form id="logout" action="/session" method="delete" class="form-inline pull-right">
               <span class="username" ></span>
               <button class="btn" type="submit">Log out</button>
             </form>          
           </span>
 
           <span style="display:none" id="signing_in">
-            <form id="login" action="/session" method="post" class="pull-right">
-              <input class="input-small" type="email" name="email"
+            <form id="login" action="/session" method="post" class="form-inline pull-right">
+              <input type="email" name="email"
                      placeholder="e-mail address" id="login-email">
               <button class="btn" type="submit">Sign in</button>
             </form>
           </span>
 
           <span style="display:none" id="signin_password">
-            <form id="password" action="/session" method="post" class="pull-right">
-              <input class="input-small" type="password" name="password"
-                     placeholder="password" id="login-email">
+            <form id="password" action="/session" method="post" class="form-inline pull-right">
+              <input type="password" name="password"
+                     placeholder="password" id="login-password">
               <button class="btn" type="submit">Sign in</button>
             </form>
           </span>
