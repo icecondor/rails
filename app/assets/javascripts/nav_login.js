@@ -105,13 +105,13 @@ function signup_callback(data, status, form) {
 function login_success(user) {
   console.log(user)
   current_user = user
-  $(".topbar #signing_in").hide()
-  $(".topbar #signin_password").hide()
-  $(".topbar #logged_in .username").append(
+  $(".navbar #signing_in").hide()
+  $(".navbar #signin_password").hide()
+  $(".navbar #logged_in .username").append(
            $("#loggedInUserTemplate").render({
                     username: user.username,
                     url: "/"+user.username}))
-  $(".topbar #logged_in").show()
+  $(".navbar #logged_in").show()
 }
 
 function logout_submit() {
@@ -123,7 +123,7 @@ function logout_submit() {
 }
 
 function logout_callback() {
-  $(".topbar #logged_in").hide()
-  $(".topbar #signing_in").show()
-  $(".topbar #logged_in .username").empty()
+  $(".navbar #logged_in").hide()
+  $(".navbar #signing_in").show()
+  $(".navbar #logged_in .username").empty()
 }

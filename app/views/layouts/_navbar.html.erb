@@ -1,5 +1,5 @@
-    <div class="topbar">
-      <div class="fill">
+    <div class="navbar">
+      <div class="navbar-inner">
         <div class="container">
           <a class="brand" href="/">
             <img src="/assets/icon-64x64.png">
@@ -39,9 +39,9 @@
           </span>
 
             <script>
-              $('.topbar #login').submit(function(e){login_submit($(e.target.email).val()); return false;})
-              $('.topbar #password').submit(function(e){login_password($('#login-email').val(), e.target.password.value);return false;})
-              $('.topbar #logout').submit(function(e){logout_submit();return false;})
+              $('.navbar #login').submit(function(e){login_submit($(e.target.email).val()); return false;})
+              $('.navbar #password').submit(function(e){login_password($('#login-email').val(), e.target.password.value);return false;})
+              $('.navbar #logout').submit(function(e){logout_submit();return false;})
             </script>
 
         </div>

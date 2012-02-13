@@ -7,7 +7,7 @@
 */
 
 #body {
-  padding-top: 60px; /* 40px to make the container go all the way to the bottom of the topbar */
+
 }
 
 #body .container {
@@ -17,7 +17,7 @@
   text-align: center; /* center align it with the container */
 }
 
-.topbar .container .brand {
+.navbar .container .brand {
   padding-top: 4px;
   padding-bottom: 4px;
 }
@@ -26,20 +26,20 @@
   vertical-align: middle;
 }
 
-.topbar .nav {
+.navbar .nav {
   padding-top: 5px;
   font-size: 120%;
 }
 
-.topbar .pull-right {
+.navbar .pull-right {
   padding-top: 5px;
 }
 
-.topbar #login-email {
+.navbar #login-email {
   width: 20em;
 }
 
-.topbar #marketbutton {
+.navbar #marketbutton {
   height: 35px; 
   padding-top: 8px;
   margin-left: 3em;
