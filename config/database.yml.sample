@@ -1,0 +1,10 @@
+development:
+  adapter: sqlite3
+  encoding: unicode
+  database: ./db/placeholder.sqlite3
+
+test:
+  adapter: sqlite3
+  encoding: unicode
+  database: ":memory:"
+
