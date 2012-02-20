@@ -2,7 +2,7 @@ require 'test_helper'
 
 class LocationsControllerTest < ActionController::TestCase
   test "location v1 creation" do
-    location = { timestamp: "2012-02-02",
+    location_params = { timestamp: "2012-02-02",
                  batterylevel: 40,
                  provider: "gps",
                  heading: 120,
@@ -11,8 +11,14 @@ class LocationsControllerTest < ActionController::TestCase
                              longitude: -122,
                              accuracy: 100,
                              altitude: 100}}
-    post :create, { :location => location,
-                    :client => {:version => "20100606"}}
+    params = { :location => location_params,
+               :client => {:version => "20100606"}}
+    location = {} // mock() is not found
+    location.expects(:username=)
+    location.expects(:id).returns(1)
+    location.expects(:save)
+    Location.expects(:v1create).returns(location)
+    post :create, params
     assert_response :success
   end
 end
