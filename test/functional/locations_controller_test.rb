@@ -13,7 +13,7 @@ class LocationsControllerTest < ActionController::TestCase
                              altitude: 100}}
     params = { :location => location_params,
                :client => {:version => "20100606"}}
-    location = {} // mock() is not found
+    location = {} # mock() is not found
     location.expects(:username=)
     location.expects(:id).returns(1)
     location.expects(:save)
