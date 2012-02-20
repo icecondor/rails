@@ -41,3 +41,11 @@ div.mapfloatheading {
 
 .mapfloatcontent .markerprofile {
 }
+
+table#trackedlist {
+  width: 100%;
+
+  tbody td {
+    border-top: 1px solid #dddddd
+  }
+}
