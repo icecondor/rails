@@ -24,4 +24,20 @@ class User < CouchRest::Model::Base
     35.times { str += chars[rand(chars.length)] }
     return str
   end
+
+  def self.build_initial_locations(usernames, count)
+    usernames.inject({}) do |hash, username|
+      user = User.find_by_username(username)
+      if user
+        hash[username] = { :username => user.username,
+                           :marker_image_filename => user.marker_image_filename,
+                           :locations => [],
+                           :initial_locations => Location.last_for(username, count),
+                           :markers => []
+                         }
+      end
+      hash
+    end
+  end
+
 end
