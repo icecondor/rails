@@ -38,11 +38,46 @@ class UsersController < ApplicationController
   end
 
   def show
-    @user = User.find_by_username(params[:username])
+    @user = User.find_by_username(params[:id])
     unless @user
       flash[:error] = "user \"#{params[:username]}\" is unknown"
       redirect_to root_path
       return
     end
   end
+
+  def data
+    @user = User.find_by_username(params[:id])
+    unless @user
+      flash[:error] = "user \"#{params[:username]}\" is unknown"
+      redirect_to root_path
+      return
+    end
+  end
+
+  def map
+    @user = User.find_by_username(params[:id])
+    if @user
+      count = params[:count]
+      @group = User.build_initial_locations(@user.friends,count || 10)
+    else
+      flash[:error] = "user \"#{params[:username]}\" is unknown"
+      redirect_to root_path
+      return
+    end
+  end
+
+  def solomap
+    @user = User.find_by_username(params[:id])
+    if @user
+      count = params[:count]
+      @group = User.build_initial_locations([@user.username],count || 10)
+      render :map
+    else
+      flash[:error] = "user \"#{params[:username]}\" is unknown"
+      redirect_to root_path
+      return
+    end
+  end
+
 end

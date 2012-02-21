@@ -1,6 +1,11 @@
 Icecondor::Application.routes.draw do
   resource :session
-  resources :users
+  resources :users do
+    member do
+      get :data
+      get :map
+    end
+  end
   resources :locations
   
   match "/dashboard/livemap" => "dashboard#map"
@@ -14,6 +19,6 @@ Icecondor::Application.routes.draw do
   match "/mobile/login" => "mobile#login_form"
   match "/mobile/signup" => "mobile#signup"
   
-  match "/:username" => "users#show"
+  match "/:id" => "users#solomap"
   root :to => 'dashboard#map'
 end

@@ -1,0 +1,32 @@
+<p>
+ <%= @user.username %>
+</p>
+
+<p>
+ <%= @user.location_count %> locations recorded.
+</p>
+
+<p>
+last 10
+<table>
+  <thead>
+  <td> Date </td>
+  <td> Latitude </td>
+  <td> Longitude </td>
+  <td> Provider </td>
+  </thead>
+  <% Location.last_for(@user.username, 10).each do |location| %>
+  <tr id="<%=location.id%>">
+   <td class="date"> <%=location.date %> </td>
+   <td> <%=location.position.latitude %> </td>
+   <td> <%=location.position.longitude %> </td>
+   <td> <%=location.provider %> </td>
+  </tr>
+  <script>
+   var localtime = new Date(<%=raw location.date.to_json %>)
+   var time_str = ""+localtime
+   $('#<%=location.id%> .date').html(time_str)
+  </script>
+  <% end %>
+</table>
+</p>
