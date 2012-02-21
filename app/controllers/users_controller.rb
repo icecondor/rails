@@ -60,6 +60,7 @@ class UsersController < ApplicationController
     if @user
       count = params[:count]
       @group = User.build_initial_locations(@user.friends,count || 10)
+      render :map, :locals => {:msgtitle => "Friends of #{@user.username}"}
     else
       flash[:error] = "user \"#{params[:username]}\" is unknown"
       redirect_to root_path
@@ -72,7 +73,7 @@ class UsersController < ApplicationController
     if @user
       count = params[:count]
       @group = User.build_initial_locations([@user.username],count || 10)
-      render :map
+      render :map, :locals => {:msgtitle => ""}
     else
       flash[:error] = "user \"#{params[:username]}\" is unknown"
       redirect_to root_path

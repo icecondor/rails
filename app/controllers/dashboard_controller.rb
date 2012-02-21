@@ -7,6 +7,7 @@ class DashboardController < ApplicationController
       user.friends.include?('frontpage') if user
     end
     @group = User.build_initial_locations(last_usernames,count || 10)
+    render :map, :locals => {:msgtitle => "Recent public updates"}
   end
 
 end
