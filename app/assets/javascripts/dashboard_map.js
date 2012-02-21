@@ -1,11 +1,11 @@
 var map, bounds;
 
-function mapstart() {
+function mapstart(center) {
   console.log("googlemap start")
   bounds = new google.maps.LatLngBounds();
   var mapOptions = {
     zoom: 13,
-    center: new google.maps.LatLng(45.519,-122.69),
+    center: center,
     mapTypeId: google.maps.MapTypeId.ROADMAP
   };
   map = new google.maps.Map(document.getElementById("map_canvas"), mapOptions);
