@@ -105,3 +105,8 @@
 #logged_in .username {
   margin-top: 5px;
 }
+
+.alert-error p {
+  font-size: 120%;
+  margin: 0px;
+}
