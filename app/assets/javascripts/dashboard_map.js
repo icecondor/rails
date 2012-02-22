@@ -24,14 +24,11 @@ function pick_center(group) {
 
   var meters = google.maps.geometry.spherical.computeDistanceBetween(bounds.getNorthEast(),
                                                                      bounds.getSouthWest())
-  if(meters > 50000)
-    zoom = 2;
-  if(meters > 25000)
-    zoom = 3;
-  if(meters > 12000)
-    zoom = 4;
-  if(meters > 6000)
-    zoom = 4;
+  if(meters > 25000) { zoom = 5; }
+  if(meters > 50000) { zoom = 4; }
+  if(meters > 100000) { zoom = 3; }
+  if(meters > 200000) { zoom = 2; }
+  
   return [bounds.getCenter(),zoom];
 }
 
