@@ -27,7 +27,11 @@ function pick_center(group) {
   if(meters > 200000)
     zoom = 2;
   if(meters > 100000)
+    zoom = 3;
+  if(meters > 50000)
     zoom = 4;
+  if(meters > 25000)
+    zoom = 5;
   return [bounds.getCenter(),zoom];
 }
 
