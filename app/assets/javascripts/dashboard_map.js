@@ -1,7 +1,7 @@
 var map, bounds;
 
 function mapstart(center, zoom) {
-  console.log("googlemap start")
+  console.log("googlemap start "+center.lat()+","+center.lng()+" z:"+zoom)
   bounds = new google.maps.LatLngBounds();
   var mapOptions = {
     zoom: zoom,
