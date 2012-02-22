@@ -10,14 +10,8 @@
 <script>
 var group = <%=raw @group.to_json %>;
 $(function() {
-  var center;
-  for(var username in group) {
-    var locs = group[username].initial_locations
-    var loc = locs[locs.length-1]
-    center = new google.maps.LatLng(loc.position.latitude, loc.position.longitude);
-    break; /* center on first user */
-  }
-  mapstart(center);
+  var center_zoom = pick_center(group);
+  mapstart(center_zoom[0], center_zoom[1]);
   define_group_ui();
   play_initial_locations();
   iceCondor.on('hello', ic_connected);

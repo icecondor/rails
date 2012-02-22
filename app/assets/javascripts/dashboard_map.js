@@ -1,14 +1,34 @@
 var map, bounds;
 
-function mapstart(center) {
+function mapstart(center, zoom) {
   console.log("googlemap start")
   bounds = new google.maps.LatLngBounds();
   var mapOptions = {
-    zoom: 13,
+    zoom: zoom,
     center: center,
     mapTypeId: google.maps.MapTypeId.ROADMAP
   };
   map = new google.maps.Map(document.getElementById("map_canvas"), mapOptions);
+}
+
+function pick_center(group) {
+  var bounds = new google.maps.LatLngBounds();
+  var center;
+  var zoom = 13;
+  for(var username in group) {
+    var locs = group[username].initial_locations
+    var loc = locs[locs.length-1]
+    var point = new google.maps.LatLng(loc.position.latitude, loc.position.longitude);
+    bounds.extend(point);
+  }
+
+  var meters = google.maps.geometry.spherical.computeDistanceBetween(bounds.getNorthEast(),
+                                                                     bounds.getSouthWest())
+  if(meters > 200000)
+    zoom = 2;
+  if(meters > 100000)
+    zoom = 4;
+  return [bounds.getCenter(),zoom];
 }
 
 function define_group_ui() {
