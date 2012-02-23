@@ -170,7 +170,7 @@ function make_marker(user, point) {
 
 function pick_icons() {
   var images = ["mm_20_yellow", "mm_20_blue", "mm_20_red", "mm_20_white",
-                "mm_20_brown", "mm_20_lime"]
+                "mm_20_brown", "mm_20_lime", "mm_20_green"]
   var usernames = []
   for(var username in group) {usernames.push(username)};
   for(var i=0,len=usernames.length; i < len; i++) {
