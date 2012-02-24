@@ -17,9 +17,11 @@ function pick_center(group) {
   var zoom = 13;
   for(var username in group) {
     var locs = group[username].initial_locations
-    var loc = locs[locs.length-1]
-    var point = new google.maps.LatLng(loc.position.latitude, loc.position.longitude);
-    bounds.extend(point);
+    if(locs.length > 0) {
+      var loc = locs[locs.length-1]
+      var point = new google.maps.LatLng(loc.position.latitude, loc.position.longitude);
+      bounds.extend(point);
+    }
   }
 
   var meters = google.maps.geometry.spherical.computeDistanceBetween(bounds.getNorthEast(),
