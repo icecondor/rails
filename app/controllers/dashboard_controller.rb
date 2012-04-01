@@ -10,4 +10,7 @@ class DashboardController < ApplicationController
     render :map, :locals => {:msgtitle => "Recent public updates"}
   end
 
+  def status
+    @counts = StatusReport.type_count.reduce.group.rows
+  end
 end

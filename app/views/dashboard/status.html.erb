@@ -1,0 +1,6 @@
+<%= javascript_include_tag "d3.js" %>
+<%= @counts.to_json %>
+<script>
+  $(status_chart(<%= raw @counts.to_json%>))
+</script>
+
