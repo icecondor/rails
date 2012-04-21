@@ -29,7 +29,7 @@ class Location < CouchRest::Model::Base
            }",
          :reduce => "function(keys, values, rereduce) {
               return sum(values);
-           }"          
+           }"
 
     view :by_username,
          :map => "function(doc) {
@@ -39,7 +39,17 @@ class Location < CouchRest::Model::Base
            }",
          :reduce => "function(keys, values, rereduce) {
               return sum(values);
-           }"          
+           }"
+
+    view :by_date,
+         :map => "function(doc) {
+             if(doc.type == 'location') {
+               emit(doc.date,1);
+             }
+           }",
+         :reduce => "function(keys, values, rereduce) {
+              return sum(values);
+           }"
   end
 
   def self.last_users

@@ -9,7 +9,7 @@ class LocationsController < ApplicationController
       location.username = user.username
       location.save
       logger.info("Created #{location.inspect}")
-      
+
       render :json => {:id => location.id}
     else
       logger.info("User not found for oauth_token: #{params[:oauth_token].inspect}")
@@ -21,5 +21,14 @@ class LocationsController < ApplicationController
     count = params[:limit] ? params[:limit].to_i : 1
     locations = Location.last_for(params[:username], params[:limit])
     render :json => "#{params[:callback]}(#{locations.to_json})"
+  end
+
+  def count
+    count = 0
+    rows = Location.by_date.startkey(params[:hours].to_i.hours.ago).reduce.rows
+    if rows.size > 0
+      count = rows.first["value"]
+    end
+    render :json => count
   end
 end

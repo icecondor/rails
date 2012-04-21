@@ -6,7 +6,11 @@ Icecondor::Application.routes.draw do
       get :map
     end
   end
-  resources :locations
+  resources :locations do
+    collection do
+      get :count
+    end
+  end
 
   match "/dashboard/livemap" => "dashboard#map"
   match "/dashboard/features" => "dashboard#features"
