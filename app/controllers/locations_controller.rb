@@ -29,6 +29,6 @@ class LocationsController < ApplicationController
     if rows.size > 0
       count = rows.first["value"]
     end
-    render :json => count
+    render :json => {:count => count}
   end
 end
