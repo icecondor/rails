@@ -14,6 +14,7 @@ class User < CouchRest::Model::Base
   view_by :email
   view_by :username
   view_by :oauth_token
+  view_by :created_at
 
   def location_count
     Location.count_for(username)
