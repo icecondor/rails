@@ -1,36 +1,32 @@
-var map, bounds;
+var map = map_leaflet
 
 function mapstart(center, zoom) {
-  console.log("googlemap start "+center.lat()+","+center.lng()+" z:"+zoom)
-  bounds = new google.maps.LatLngBounds();
-  var mapOptions = {
-    zoom: zoom,
-    center: center,
-    mapTypeId: google.maps.MapTypeId.ROADMAP
-  };
-  map = new google.maps.Map(document.getElementById("map_canvas"), mapOptions);
+  console.log(map_leaflet)
+  map.setup(center, zoom)
 }
 
-function pick_center(group) {
-  var bounds = new google.maps.LatLngBounds();
-  var center;
-  var zoom = 13;
-  for(var username in group) {
-    var locs = group[username].initial_locations
-    if(locs.length > 0) {
-      var loc = locs[locs.length-1]
-      var point = new google.maps.LatLng(loc.position.latitude, loc.position.longitude);
-      bounds.extend(point);
+function bounding_box(group) {
+    points = []
+    for(var username in group) {
+      var locs = group[username].initial_locations
+      if(locs.length > 0) {
+        var loc = locs[locs.length-1]
+        points.push([loc.position.latitude, loc.position.longitude]);
+      }
     }
-  }
 
-  var meters = google.maps.geometry.spherical.computeDistanceBetween(bounds.getNorthEast(),
-                                                                     bounds.getSouthWest())
+    var bounding_box = gju.boundingBoxAroundPolyCoords([points])
+}
+
+function pick_zoom(box){
+  var corner_distance = gju.pointDistance(box[0], box[1])
+
+  var zoom = 13;
   if(meters > 25000) { zoom = 5; }
   if(meters > 50000) { zoom = 4; }
   if(meters > 100000) { zoom = 3; }
   if(meters > 200000) { zoom = 2; }
-  
+
   return [bounds.getCenter(),zoom];
 }
 
@@ -81,7 +77,7 @@ function update_position(msg) {
   var user = group[msg.username];
 
   if(newer_than_head(user.locations,msg)) {
-    var new_point = new google.maps.LatLng(msg.position.latitude, 
+    var new_point = new google.maps.LatLng(msg.position.latitude,
                                            msg.position.longitude);
     var marker = make_marker(user, new_point);
     msg.marker = marker
@@ -93,7 +89,7 @@ function update_position(msg) {
 
       // determine speed
       speed = speed_calc(new Date(last_location.date),
-                         last_location.marker.getPosition(), 
+                         last_location.marker.getPosition(),
                          new Date(msg.date),
                          marker.getPosition())
       // old positions get subtle marker
@@ -120,13 +116,13 @@ function update_position(msg) {
     var words = short_date(localtime, new Date())
     $('#'+msg.username+'-date').html(words)
     $('#'+msg.username+'-date').attr("title",""+localtime)
-    
+
   }
 }
 
 function newer_than_head(locations, location) {
   return date_position(locations.map(
-                           function(user){return user.date}), 
+                           function(user){return user.date}),
                        location.date) == 0
 }
 
@@ -155,7 +151,7 @@ function add_user_ui(username) {
 }
 
 function center_on_username(username) {
-  var user = group[username];  
+  var user = group[username];
   var last_marker = user.locations[0].marker
   map.setCenter(last_marker.getPosition());
 }
@@ -205,7 +201,7 @@ function short_date(then, now) {
     var monthNames = [ "Jan", "Feb", "Mar", "Apr", "May", "Jun",
     "Jul", "Aug", "Sep", "Oct", "Nov", "Dec" ];
 
-    var hours = then.getHours(), 
+    var hours = then.getHours(),
         minutes = then.getMinutes(),
         ampm = "am";
     if (hours >= 12) {
