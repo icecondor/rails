@@ -16,7 +16,8 @@ $(function() {
   var zoom = 4;
 
   if(Object.keys(group).length > 0) {
-    var box = bounding_box(group)
+    box = bounding_box(group)
+    console.dir(box)
     center = gju.rectangleCentroid(box)
     zoom = pick_zoom(box)
   }

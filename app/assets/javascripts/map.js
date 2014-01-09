@@ -6,28 +6,31 @@ function mapstart(center, zoom) {
 }
 
 function bounding_box(group) {
-    points = []
-    for(var username in group) {
-      var locs = group[username].initial_locations
-      if(locs.length > 0) {
-        var loc = locs[locs.length-1]
-        points.push([loc.position.latitude, loc.position.longitude]);
-      }
+  points = []
+  for(var username in group) {
+    var locs = group[username].initial_locations
+    if(locs.length > 0) {
+      var loc = locs[locs.length-1]
+      points.push([loc.position.latitude, loc.position.longitude]);
     }
+  }
 
-    var bounding_box = gju.boundingBoxAroundPolyCoords([points])
+  var bounding_box = gju.boundingBoxAroundPolyCoords([points])
+  return {coordinates:[[bounding_box[0], [], bounding_box[1], []]]}
 }
 
 function pick_zoom(box){
-  var corner_distance = gju.pointDistance(box[0], box[1])
+  var sw_point = {coordinates: box.coordinates[0][0]}
+  var ne_point = {coordinates: box.coordinates[0][2]}
+  var meters = gju.pointDistance(sw_point, ne_point)
 
-  var zoom = 13;
+  var zoom = 17;
   if(meters > 25000) { zoom = 5; }
   if(meters > 50000) { zoom = 4; }
   if(meters > 100000) { zoom = 3; }
   if(meters > 200000) { zoom = 2; }
 
-  return [bounds.getCenter(),zoom];
+  return zoom
 }
 
 function define_group_ui() {
