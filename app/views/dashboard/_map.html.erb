@@ -17,12 +17,14 @@ $(function() {
 
   if(Object.keys(group).length > 0) {
     box = bounding_box(group)
-    console.dir(box)
     center = gju.rectangleCentroid(box)
     zoom = pick_zoom(box)
   }
 
   mapstart(center, zoom)
+  define_group_ui()
+  play_initial_locations()
+
   iceCondor.on('hello', ic_connected);
   iceCondor.on('disconnect', ic_disconnected);
 });

@@ -1,11 +1,7 @@
-  var map = this.map_leaflet = {};
+  this.map_leaflet = {};
 
-  map.setup = function(center, zoom){
-    console.log('center')
-    console.log(center)
-    console.log('zoom')
-    console.log(zoom)
-    this.map = L.map('map').setView(this.pointToLatLng(center), zoom);
+  map_leaflet.setup = function(center, zoom){
+    map_leaflet.map = L.map('map').setView(this.pointToLatLng(center), zoom);
 
     var osmUrl='http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
     var osmAttrib='Map data © OpenStreetMap contributors';
@@ -15,16 +11,27 @@
     return map
   }
 
-  map.setCenter = function(center){
+  map_leaflet.setCenter = function(center){
     this.map.panTo(this.pointToLatLng(center))
   }
 
-  map.pointToLatLng = function(point){
+  map_leaflet.pointToLatLng = function(point){
     return L.latLng(point.coordinates[1], point.coordinates[0])
   }
 
-  map.makeMarker = function(point, title){
-    var marker = L.marker(point)
+  map_leaflet.latLngToPoint = function(latlng){
+    return {coordinates: [latlng.lat, latlng.lng]}
+  }
+
+  map_leaflet.makeMarker = function(point, title){
+    var marker = L.marker(this.pointToLatLng(point))
     marker.addTo(this.map)
     return marker
+  }
+
+  map_leaflet.makeLine = function(points){
+    var latlngs = points.map(function(p){this.pointToLatLng(p)})
+    var line = L.polyline(latlngs)
+    map_leaflet.map.addLayer(line)
+    return line
   }

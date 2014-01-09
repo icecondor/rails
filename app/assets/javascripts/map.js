@@ -1,7 +1,6 @@
-var map = map_leaflet
+var map = this.map_leaflet
 
 function mapstart(center, zoom) {
-  console.log(map_leaflet)
   map.setup(center, zoom)
 }
 
@@ -11,6 +10,8 @@ function bounding_box(group) {
     var locs = group[username].initial_locations
     if(locs.length > 0) {
       var loc = locs[locs.length-1]
+      console.log('pushing bounding '+username)
+      console.log(loc.position)
       points.push([loc.position.latitude, loc.position.longitude]);
     }
   }
@@ -34,7 +35,7 @@ function pick_zoom(box){
 }
 
 function define_group_ui() {
-  console.log("creating users")
+  console.log("creating users "+Object.keys(group))
   pick_icons();
   for(var username in group) {
     add_user_ui(username)
@@ -80,11 +81,11 @@ function update_position(msg) {
   var user = group[msg.username];
 
   if(newer_than_head(user.locations,msg)) {
-    var new_point = new google.maps.LatLng(msg.position.latitude,
-                                           msg.position.longitude);
-    var marker = make_marker(user, new_point);
+    console.log('updating '+msg.username+' '+[msg.position.longitude,msg.position.latitude]+" "+msg.date)
+    var position = {coordinates: [msg.position.longitude,
+                                  msg.position.latitude]};
+    var marker = map.makeMarker(position, user.username);
     msg.marker = marker
-    marker.setTitle(msg.username)
     var speed = 0;
 
     if(user.locations.length > 0) {
@@ -92,27 +93,27 @@ function update_position(msg) {
 
       // determine speed
       speed = speed_calc(new Date(last_location.date),
-                         last_location.marker.getPosition(),
+                         map.latLngToPoint(last_location.marker.getLatLng()),
                          new Date(msg.date),
-                         marker.getPosition())
+                         map.latLngToPoint(marker.getLatLng()) )
       // old positions get subtle marker
       var icon_name = msg.provider || "api"
-      last_location.marker.setIcon(make_icon("/assets/mapmarkers/"+icon_name+".png"))
+      last_location.marker.setOpacity(0.5)
 
       // summary
       var accuracy = ""
       if(msg.position.accuracy) { accuracy = "acc "+
                                   Math.floor(last_location.position.accuracy)+"m"}
       var speed_str = Math.floor(speed)+" m/s"
-      last_location.marker.setTitle(last_location.provider+" "+accuracy+" "+speed_str)
+      last_location.marker.setPopupContent(last_location.provider+" "+accuracy+" "+speed_str)
     }
 
     user.locations.unshift(msg);
-
+    console.log(user.username+" speed "+speed)
     if (speed < 30) {
-      user.line.getPath().push(new_point)
+      user.line.addLatLng(map.pointToLatLng(position))
     } else {
-      user.line.setPath([])
+      //user.line.spliceLatLngs(0, user.line.getLatLngs().length)
     }
 
     var localtime = new Date(msg.date);
@@ -137,9 +138,9 @@ function date_position(dates, date) {
   return i
 }
 
-function speed_calc(d1, ll1, d2, ll2) {
+function speed_calc(d1, p1, d2, p2) {
   var seconds = (d2-d1)/1000
-  var meters = google.maps.geometry.spherical.computeDistanceBetween (ll1, ll2);
+  var meters = gju.pointDistance(p1, p2);
   return meters/seconds;
 }
 
@@ -150,7 +151,7 @@ function add_user_ui(username) {
   };
   $('#trackedlist tbody').append($("#trackedUserTemplate").render(fields));
   $('#'+username+'-profile .profilelink').click(function(){center_on_username(username); return false})
-  user.line = new google.maps.Polyline({map:map, strokeWeight: 1})
+  user.line = map.makeLine([])
 }
 
 function center_on_username(username) {
