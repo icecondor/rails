@@ -85,6 +85,7 @@ function update_position(msg) {
     var position = {coordinates: [msg.position.longitude,
                                   msg.position.latitude]};
     var marker = map.makeMarker(position, user.username);
+    marker.setIcon(map.makeIcon(user.marker_image_url, 12, 20))
     msg.marker = marker
     var speed = 0;
 
@@ -98,7 +99,7 @@ function update_position(msg) {
                          map.latLngToPoint(marker.getLatLng()) )
       // old positions get subtle marker
       var icon_name = msg.provider || "api"
-      last_location.marker.setOpacity(0.5)
+      last_location.marker.setIcon(map.makeIcon("/assets/mapmarkers/"+icon_name+".png", 7, 7))
 
       // summary
       var accuracy = ""
@@ -160,16 +161,6 @@ function center_on_username(username) {
   map.setCenter(last_marker.getPosition());
 }
 
-function make_marker(user, point) {
-  var marker = new google.maps.Marker();
-  marker.setMap(map);
-  marker.setAnimation(google.maps.Animation.DROP);
-  marker.setIcon(make_icon(user.marker_image_url));
-  marker.setPosition(point);
-
-  return marker;
-}
-
 function pick_icons() {
   var images = ["mm_20_yellow", "mm_20_blue", "mm_20_red", "mm_20_white",
                 "mm_20_brown", "mm_20_lime", "mm_20_green"]
@@ -187,10 +178,6 @@ function marker_icon_for(user, default_filename) {
     marker_name = default_filename;
   }
   return "/assets/mapmarkers/"+marker_name
-}
-function make_icon(url) {
-  var marker_image = new google.maps.MarkerImage(url);
-  return marker_image
 }
 
 function str_to_idx(str, count) {

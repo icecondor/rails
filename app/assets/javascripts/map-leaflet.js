@@ -23,6 +23,10 @@
     return {coordinates: [latlng.lat, latlng.lng]}
   }
 
+  map_leaflet.makeIcon = function(url, w, h){
+    return L.icon({iconUrl: url, iconSize: [w,h]})
+  }
+
   map_leaflet.makeMarker = function(point, title){
     var marker = L.marker(this.pointToLatLng(point))
     marker.addTo(this.map)
