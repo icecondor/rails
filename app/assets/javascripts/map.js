@@ -38,11 +38,15 @@ function define_group_ui() {
   for(var username in group) {
     users.push(group[username])
   }
-  users = users.sort(function(u){
-    return u.initial_locations[u.initial_locations.length-1].date
+  users = users.sort(function(a,b){
+    a1 = a.initial_locations[a.initial_locations.length-1].date
+    b1 = b.initial_locations[b.initial_locations.length-1].date
+    if(a1 > b1) { return 1}
+    if(a1 < b1) { return -1}
+    return 0
   })
-  for(var user in users){
-    add_user_ui(users[(users.length-1)-user].username)
+  for(var user_idx in users){
+    add_user_ui(users[user_idx].username)
   }
 }
 
