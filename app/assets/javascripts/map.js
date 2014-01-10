@@ -33,10 +33,16 @@ function pick_zoom(box){
 }
 
 function define_group_ui() {
-  console.log("creating users "+Object.keys(group))
   pick_icons();
+  var users = [] // convert into array for sorting
   for(var username in group) {
-    add_user_ui(username)
+    users.push(group[username])
+  }
+  users = users.sort(function(u){
+    return u.initial_locations[u.initial_locations.length-1].date
+  })
+  for(var user in users){
+    add_user_ui(users[(users.length-1)-user].username)
   }
 }
 
