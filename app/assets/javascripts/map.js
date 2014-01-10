@@ -41,8 +41,8 @@ function define_group_ui() {
   users = users.sort(function(a,b){
     a1 = a.initial_locations[a.initial_locations.length-1].date
     b1 = b.initial_locations[b.initial_locations.length-1].date
-    if(a1 > b1) { return 1}
-    if(a1 < b1) { return -1}
+    if(a1 > b1) { return -1}
+    if(a1 < b1) { return 1}
     return 0
   })
   for(var user_idx in users){
