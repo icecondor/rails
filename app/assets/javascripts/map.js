@@ -10,8 +10,6 @@ function bounding_box(group) {
     var locs = group[username].initial_locations
     if(locs.length > 0) {
       var loc = locs[locs.length-1]
-      console.log('pushing bounding '+username)
-      console.log(loc.position)
       points.push([loc.position.latitude, loc.position.longitude]);
     }
   }
@@ -25,11 +23,11 @@ function pick_zoom(box){
   var ne_point = {coordinates: box.coordinates[0][2]}
   var meters = gju.pointDistance(sw_point, ne_point)
 
-  var zoom = 17;
-  if(meters > 25000) { zoom = 5; }
-  if(meters > 50000) { zoom = 4; }
-  if(meters > 100000) { zoom = 3; }
-  if(meters > 200000) { zoom = 2; }
+  var zoom = 16;
+  if(meters > 25000) { zoom = 8; }
+  if(meters > 50000) { zoom = 7; }
+  if(meters > 100000) { zoom = 6; }
+  if(meters > 200000) { zoom = 5; }
 
   return zoom
 }
