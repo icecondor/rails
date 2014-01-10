@@ -24,10 +24,10 @@ function pick_zoom(box){
   var meters = gju.pointDistance(sw_point, ne_point)
 
   var zoom = 16;
-  if(meters > 25000) { zoom = 7; }
-  if(meters > 50000) { zoom = 6; }
-  if(meters > 100000) { zoom = 5; }
-  if(meters > 200000) { zoom = 4; }
+  if(meters > 25000) { zoom = 5; }
+  if(meters > 50000) { zoom = 4; }
+  if(meters > 100000) { zoom = 3; }
+  if(meters > 200000) { zoom = 2; }
 
   return zoom
 }
