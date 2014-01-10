@@ -5,7 +5,7 @@
 
     var osmUrl='http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
     var osmAttrib='Map data © OpenStreetMap contributors';
-    var osm = new L.TileLayer(osmUrl, {minZoom: 4, maxZoom: 18, attribution: osmAttrib});
+    var osm = new L.TileLayer(osmUrl, {minZoom: 2, maxZoom: 18, attribution: osmAttrib});
     osm.addTo(this.map);
 
     return map
