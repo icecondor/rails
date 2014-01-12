@@ -54,6 +54,7 @@ class SessionsController < ApplicationController
   end
 
   def show
+    logger.info "Checking #{request.session_options[:id]} :logged_in_user = #{session[:logged_in_user].inspect}"
     username = session[:logged_in_user]
     if username
       user = User.find_by_username(username)
