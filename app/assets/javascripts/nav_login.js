@@ -16,7 +16,7 @@ function login_callback(data, status) {
   }
   if(data.status == "NEEDPASS") {
     $('#full-login-password-err').html('')
-    $('#full-login-email').val($('#login-email').val())   
+    $('#full-login-email').val($('#login-email').val())
     $('#full-login-password-row').removeClass('error')
     $.colorbox({inline:true, href: $('#full-login-form'),
             opacity: 0.99, top: "10%",
@@ -26,7 +26,13 @@ function login_callback(data, status) {
 
 function login_password(email, password) {
   console.log("login_password email:"+email+" password:"+password)
-  iceCondor.api({type:"auth", email:email, password: password})
+  $.post('/session', {email: email, password: password}, login_password_callback)
+}
+
+function login_password_callback(data, status){
+  console.log("login_password_callback")
+  console.log(data)
+  iceCondor.api({type:"auth", oauth_token: data.user.oauth_token})
 }
 
 function auth_callback(data) {
@@ -35,7 +41,7 @@ function auth_callback(data) {
   if (data.status == "OK") {
     $.colorbox.close();
     $.post('/session', {oauth_token: data.user.oauth_token})
-    login_success(data.user) 
+    login_success(data.user)
   }
   if (data.status == "BADPASS") {
     $('#full-login-password-err').html(' - Wrong')
