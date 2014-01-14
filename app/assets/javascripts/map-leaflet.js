@@ -1,7 +1,8 @@
   this.map_leaflet = {};
 
   map_leaflet.setup = function(center, zoom){
-    map_leaflet.map = L.map('map').setView(this.pointToLatLng(center), zoom);
+    map_leaflet.map = L.map('map', {drawControl: true}).setView(this.pointToLatLng(center), zoom);
+    map_leaflet.remove_draw();
 
     var osmUrl='//{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
     var osmAttrib='Map data © OpenStreetMap contributors';
@@ -9,6 +10,14 @@
     osm.addTo(this.map);
 
     return map
+  }
+
+  map_leaflet.add_draw = function(){
+    map_leaflet.map.drawControl.addTo(map_leaflet.map)
+  }
+
+  map_leaflet.remove_draw = function(){
+    map_leaflet.map.drawControl.removeFrom(map_leaflet.map)
   }
 
   map_leaflet.setCenter = function(center){
