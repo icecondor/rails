@@ -3,7 +3,7 @@
  * and any sub-directories. You're free to add application-wide styles to this file and they'll appear at
  * the top of the compiled file, but it's generally better to create a new file per style scope.
  *= require_self
- *= require_tree . 
+ *= require_tree .
 */
 
 #body {
@@ -40,9 +40,10 @@
   width: 20em;
 }
 
-.navbar #marketbutton {
-  height: 35px; 
-  padding-top: 8px;
+a#gplay {
+  width: 129px;
+  height: 45px;
+  margin-top: 8px;
   margin-left: 3em;
 }
 

@@ -11,15 +11,17 @@
             <li id="features"><a href="/dashboard/features">Features</a></li>
             <li id="developers"><a href="/dashboard/developers">Developers</a></li>
           </ul>
-          <a href="https://market.android.com/details?id=com.icecondor.nest">
-            <img id="marketbutton" src="/assets/market.png">
+
+          <a href="https://play.google.com/store/apps/details?id=com.icecondor.nest" id="gplay">
+            <img alt="Android app on Google Play"
+                 src="https://developer.android.com/images/brand/en_app_rgb_wo_45.png" />
           </a>
 
           <span style="display:none" id="logged_in">
             <form id="logout" action="/session" method="delete" class="form-inline pull-right">
               <span class="username" ></span>
               <button class="btn" type="submit">Log out</button>
-            </form>          
+            </form>
           </span>
 
           <span style="display:none" id="signing_in">
@@ -58,7 +60,7 @@
     <script>
       $('#signup_form').submit(signup_submit)
       $('#full-login-form').submit(function(e){
-                        login_password(e.target.email.value, 
+                        login_password(e.target.email.value,
                                        e.target.password.value);
                         return false;})
 
