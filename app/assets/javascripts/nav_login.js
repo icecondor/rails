@@ -116,8 +116,8 @@ function signup_callback(data, status, form) {
 }
 
 function login_success(user) {
-  console.log(user)
   current_user = user
+  if(map.map) { map.add_draw() } // this can fire before the map is ready
   $(".navbar #signing_in").hide()
   $(".navbar #signin_password").hide()
   $(".navbar #logged_in .username").append(
@@ -139,4 +139,6 @@ function logout_callback() {
   $(".navbar #logged_in").hide()
   $(".navbar #signing_in").show()
   $(".navbar #logged_in .username").empty()
+  current_user = null
+  map.remove_draw()
 }
