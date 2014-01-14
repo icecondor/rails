@@ -12,7 +12,7 @@ class SessionsController < ApplicationController
       user = User.find_by_oauth_token(token)
       if user
         session[:logged_in_user] = user.username
-        response.merge!(:status => "OK", :user => user)
+        response.merge!(:status => "OK", :user => safe_user(user))
         render :json => response
         return # holy cow refactor
       end
@@ -29,7 +29,7 @@ class SessionsController < ApplicationController
             # redirect with token? use fragment?
             response.query = Oauth2Util.bearer_token_params(response, user)
           else
-            response.merge!(:status => "OK", :user => user)
+            response.merge!(:status => "OK", :user => safe_user(user))
           end
         else
           if params[:error_uri]
@@ -37,7 +37,6 @@ class SessionsController < ApplicationController
             response.query = "email="+URI.encode(params[:email])
             flash[:bad_password] = "incorrect"
           else
-            logger.info("given: #{params[:password]} recorded:#{user.password}")
             response.merge!(:status => "BADPASS")
           end
         end
@@ -58,7 +57,7 @@ class SessionsController < ApplicationController
     username = session[:logged_in_user]
     if username
       user = User.find_by_username(username)
-      response = {:status => "OK", :user => user}
+      response = {:status => "OK", :user => safe_user(user)}
     else
       response = {:status => "NOLOGIN"}
     end
@@ -69,5 +68,10 @@ class SessionsController < ApplicationController
     #session.destroy
     session[:logged_in_user] = nil
     render :json => {:status => "OK"}
+  end
+
+  private
+  def safe_user(user)
+    {username: user.username, oauth_token: user.oauth_token}
   end
 end

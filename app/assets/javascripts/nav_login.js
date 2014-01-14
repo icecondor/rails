@@ -1,7 +1,6 @@
 function login_submit(email) {
   console.log('login_submit')
   if(email.length > 0) {
-    console.log(email)
     $.post('/session', {email: email}, login_callback)
   } else {
     $('#login-email').focus();
@@ -25,7 +24,6 @@ function login_callback(data, status) {
 }
 
 function login_password(email, password) {
-  console.log("login_password email:"+email+" password:"+password)
   $.post('/session', {email: email, password: password}, login_password_callback)
 }
 
