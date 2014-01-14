@@ -6,10 +6,6 @@
  *= require_tree .
 */
 
-#body {
-
-}
-
 #body .container {
   width: 95%;
 }
@@ -17,34 +13,31 @@
   text-align: center; /* center align it with the container */
 }
 
-.navbar .container .brand {
-  padding-top: 4px;
-  padding-bottom: 4px;
-}
-.brand img {
-  height: 45px;
+#body .navbar {
+  background: #2C2C2C;
+  border: 0;
   vertical-align: middle;
-}
 
-.navbar .nav {
-  padding-top: 5px;
-  font-size: 120%;
-}
+  .navbar-brand {
+    color: white;
+    padding: 0;
+  }
 
-.navbar .pull-right {
-  padding-top: 5px;
-}
+  .navbar-nav {
+    padding-top: 5px;
+    margin-left: 1em;
+  }
 
-.navbar #login-email {
-  margin-top: 5px;
-  width: 20em;
-}
+  #gplay {
+    margin-left: 1em;
+    img {
+      margin-top: 6px
+    }
+  }
 
-a#gplay {
-  width: 129px;
-  height: 45px;
-  margin-top: 8px;
-  margin-left: 3em;
+  #signing_in form {
+    margin-top: 10px;
+  }
 }
 
 #signup_form {

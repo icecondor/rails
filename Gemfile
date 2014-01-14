@@ -12,6 +12,7 @@ gem 'sqlite3' # to keep ActiveRecord happy
 gem 'omniauth'
 gem 'oauth2'
 gem 'bcrypt-ruby'
+gem 'slim'
 
 # Gems used only for assets and not required
 # in production environments by default.
@@ -30,12 +31,6 @@ group :production do
   # Use unicorn as the web server
   gem 'unicorn'
 end
-
-# Deploy with Capistrano
-# gem 'capistrano'
-
-# To use debugger
-# gem 'ruby-debug19', :require => 'ruby-debug'
 
 group :test do
   # Pretty printed test output

@@ -3,6 +3,7 @@
 <head>
   <title>Icecondor - Simple location sharing for groups</title>
   <link rel="shortcut icon" href="/favicon.png" type="image/png"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <%= stylesheet_link_tag "application" %>
   <%= javascript_include_tag "application" %>
   <%= javascript_include_tag "/socket.io/socket.io.js" %>
@@ -12,7 +13,7 @@
     current_user = {}
     iceCondor.setup();
     iceCondor.on('auth', auth_callback)
-    login_verify();    
+    login_verify();
   </script>
 </head>
 
@@ -24,10 +25,10 @@
   <div class="container">
     <%= yield %>
 
-  <%= render :partial => "layouts/footer" %>    
+    <%= render :partial => "layouts/footer" %>
   </div>
 
-<%= render :partial => "layouts/google" %>    
+<%= render :partial => "layouts/google" %>
 </body>
 
 </html>

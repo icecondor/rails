@@ -1,0 +1,50 @@
+nav.navbar.navbar-inverse role="navigation"
+  .navbar-header
+    a.navbar-brand
+      img src="/assets/icon-64x64.png"
+      | IceCondor
+
+  ul.nav.navbar-nav
+    li#livemap
+      a href="/" LiveMap
+    li#features
+      a href="/dashboard/features" Features
+    li#developers
+      a href="/dashboard/developers" Developers
+
+  a href="https://play.google.com/store/apps/details?id=com.icecondor.nest" id="gplay"
+    img alt="Android app on Google Play" src="//developer.android.com/images/brand/en_app_rgb_wo_45.png"
+
+  span style="display:none" id="logged_in"
+    form id="logout" action="/session" method="delete" class="form-inline pull-right"
+      span class="username"
+      button class="btn" type="submit" Log out
+
+  span style="display:none" id="signing_in"
+    form id="login" action="/session" method="post" class="form-inline pull-right"
+      input type="email" name="email" placeholder="e-mail address" id="login-email"
+      button class="btn" type="submit" Sign in
+
+  span style="display:none" id="signin_password"
+    form id="password" action="/session" method="post" class="form-inline pull-right"
+      input type="password" name="password" placeholder="password" id="login-password"
+      button class="btn" type="submit" Sign in
+
+
+div style="display:none"
+  = render :partial => "layouts/signup_form"
+div style="display:none"
+  = render :partial => "layouts/login_form"
+
+javascript:
+  $('.navbar #login').submit(function(e){login_submit($(e.target.email).val()); return false;})
+  $('.navbar #password').submit(function(e){login_password($('#login-email').val(), e.target.password.value);return false;})
+  $('.navbar #logout').submit(function(e){logout_submit();return false;})
+  $('#signup_form').submit(signup_submit)
+  $('#full-login-form').submit(function(e){
+                    login_password(e.target.email.value,
+                                   e.target.password.value);
+                    return false;})
+
+script id="loggedInUserTemplate" type="text/x-jquery-tmpl"
+  a href="{{=url}}" {{=username}}
