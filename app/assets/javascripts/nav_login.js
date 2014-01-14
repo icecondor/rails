@@ -32,16 +32,11 @@ function login_password(email, password) {
 function login_password_callback(data, status){
   console.log("login_password_callback")
   console.log(data)
-  iceCondor.api({type:"auth", oauth_token: data.user.oauth_token})
-}
-
-function auth_callback(data) {
-  console.log("auth_callback")
-  console.log(data)
   if (data.status == "OK") {
     $.colorbox.close();
     $.post('/session', {oauth_token: data.user.oauth_token})
     login_success(data.user)
+    iceCondor.api({type:"auth", oauth_token: data.user.oauth_token})
   }
   if (data.status == "BADPASS") {
     $('#full-login-password-err').html(' - Wrong')
@@ -52,10 +47,16 @@ function auth_callback(data) {
   }
 }
 
+function auth_callback(data) {
+  console.log("auth_callback")
+  console.log(data)
+}
+
 function login_verify() {
   console.log('login_verify')
   $.get('/session', function(data) {
     if (data.status == "OK") {
+      login_success(data.user)
       iceCondor.api({type: "auth", oauth_token: data.user.oauth_token})
      }
     if (data.status == "NOLOGIN") {
