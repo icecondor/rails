@@ -26,9 +26,6 @@ $(function() {
 
   mapstart(center, zoom)
   define_group_ui()
-  if(current_user){
-    map.add_draw()
-  }
   play_initial_locations()
 
   iceCondor.on('hello', ic_connected);

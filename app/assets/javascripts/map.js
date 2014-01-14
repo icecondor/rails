@@ -89,7 +89,6 @@ function update_position(msg) {
   var user = group[msg.username];
 
   if(newer_than_head(user.locations,msg)) {
-    console.log('updating '+msg.username+' '+[msg.position.longitude,msg.position.latitude]+" "+msg.date)
     var position = {coordinates: [msg.position.longitude,
                                   msg.position.latitude]};
     var marker = map.makeMarker(position, user.username);
@@ -118,7 +117,6 @@ function update_position(msg) {
     }
 
     user.locations.unshift(msg);
-    console.log(user.username+" speed "+speed)
     if (speed < 30) {
       user.line.addLatLng(map.pointToLatLng(position))
     } else {
