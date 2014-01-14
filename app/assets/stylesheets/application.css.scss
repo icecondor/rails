@@ -38,6 +38,13 @@
   #signing_in form {
     margin-top: 10px;
   }
+  #logged_in form {
+    margin-top: 10px;
+  }
+}
+
+#colorbox {
+  z-index: 2;
 }
 
 #signup_form {
@@ -46,6 +53,8 @@
   padding-right: 2em;
   padding-bottom: 1em;
   background:white;
+  border-radius: 8px;
+  border: solid;
 }
 
 #signup_form li {
@@ -74,7 +83,9 @@
   padding-left: 1em;
   padding-right: 2em;
   padding-bottom: 1em;
-  background:white;
+  background: white;
+  border-radius: 8px;
+  border: solid;
 }
 
 #full-login-form .title {
@@ -91,9 +102,12 @@
 }
 
 .username {
-  color: white;
+  a,a:hover,a:active {
+    color: white;
+  }
   font-size: 150%;
   text-align: middle;
+  padding-right: 0.5em;
 }
 
 #logged_in .username {

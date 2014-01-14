@@ -17,9 +17,12 @@ function login_callback(data, status) {
     $('#full-login-password-err').html('')
     $('#full-login-email').val($('#login-email').val())
     $('#full-login-password-row').removeClass('error')
-    $.colorbox({inline:true, href: $('#full-login-form'),
-            opacity: 0.99, top: "10%",
-            onComplete:function() { $('#full-login-password').focus()}})
+    $.colorbox({inline:true,
+                href: $('#full-login-form'),
+                opacity: 0.99, top: "20%",
+                closeButton: false,
+                onComplete:function() { $('#full-login-password').focus()}
+               })
   }
 }
 
@@ -67,8 +70,13 @@ function new_user_form(data) {
   console.log("new_user_form")
   console.log(data)
   $('#signup-email').val(data.email)
-  $.colorbox({inline:true, href: $('#signup_form'),
-              opacity: 0.99, top: "10%"})
+  $.colorbox({inline:true,
+              href: $('#signup_form'),
+              opacity: 0.99,
+              top: "10%",
+              closeButton: false,
+              onComplete:function() { $('#signup-username').focus()}
+             })
 }
 
 function signup_submit(e) {
