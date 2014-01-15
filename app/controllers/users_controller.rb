@@ -9,10 +9,12 @@ class UsersController < ApplicationController
       logger.info("creating with #{params[:user].inspect}")
       user = User.create(params[:user])
       logger.info("created #{user.inspect}")
+      RIEMANN << {service:'icecondor user', tags:['create'],
+                  description:"user: #{user.username}"}
       response.merge!({:status => "OK", :user => user})
     else
       if u_e
-        response.merge!({:email => "TAKEN"}) 
+        response.merge!({:email => "TAKEN"})
         flash[:email_taken]="already in use."
       end
       if u_u

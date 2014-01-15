@@ -24,6 +24,8 @@ class SessionsController < ApplicationController
       else
         if params[:password] == user.password
           session[:logged_in_user] = user.username
+          RIEMANN << {service:'icecondor user', tags:['login'],
+                      description:"user: #{user.username}"}
           if params[:redirect_uri]
             response = URI.parse(params[:redirect_uri])
             # redirect with token? use fragment?
