@@ -7,7 +7,7 @@ class UsersController < ApplicationController
     if u_e.nil? && u_u.nil?
       params[:user].merge!({:oauth_token => User.generate_token})
       logger.info("creating with #{params[:user].inspect}")
-      user = User.create(params[:user])
+      user = User.safe_create(params[:user])
       logger.info("created #{user.inspect}")
       RIEMANN << {service:'icecondor user', tags:['create'],
                   description:"user: #{user.username}"}

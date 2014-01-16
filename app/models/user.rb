@@ -20,6 +20,15 @@ class User < CouchRest::Model::Base
     Location.count_for(username)
   end
 
+  def self.safe_create(params)
+    user = User.new
+    user.email = params[:email]
+    user.username = params[:username]
+    user.password = BCrypt::Password.create(params[:password])
+    user.save
+    user
+  end
+
   def self.generate_token
     chars = "0123456789ABCDEFGHJKLMNPQRSTUVWXYZ_abcdefghijkmnopqrstuvwxyz"
     str = ""
