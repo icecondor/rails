@@ -22,7 +22,7 @@ class SessionsController < ApplicationController
       if params[:password].nil?
         response.merge!(:status => "NEEDPASS")
       else
-        if params[:password] == user.password
+        if user.authentic?(params[:password])
           session[:logged_in_user] = user.username
           RIEMANN << {service:'icecondor user', tags:['login'],
                       description:"user: #{user.username}"}

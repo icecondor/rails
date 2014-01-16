@@ -42,4 +42,7 @@ class User < CouchRest::Model::Base
     end
   end
 
+  def authentic?(pass)
+    BCrypt::Password.new(password) == pass
+  end
 end
