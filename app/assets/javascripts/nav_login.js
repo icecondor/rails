@@ -142,9 +142,6 @@ function logout_callback() {
   $(".navbar #signing_in").show()
   $(".navbar #logged_in .username").empty()
   if(map.map) {  // sometimes fired before the map is ready
-    map.add_draw()
-  }
-  if(map.map) {  // sometimes fired before the map is ready
     map.remove_draw()
   }
   current_user = null
