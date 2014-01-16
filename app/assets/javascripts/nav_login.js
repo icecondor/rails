@@ -141,11 +141,11 @@ function logout_callback() {
   $(".navbar #logged_in").hide()
   $(".navbar #signing_in").show()
   $(".navbar #logged_in .username").empty()
-  current_user = null
-   if(map.map) {  // sometimes fired before the map is ready
+  if(map.map) {  // sometimes fired before the map is ready
     map.add_draw()
   }
   if(map.map) {  // sometimes fired before the map is ready
     map.remove_draw()
   }
+  current_user = null
 }
