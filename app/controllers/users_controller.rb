@@ -72,14 +72,21 @@ class UsersController < ApplicationController
 
   def solomap
     @user = User.find_by_username(params[:id])
-    if @user
-      count = params[:count]
-      @group = User.build_initial_locations([@user.username],count || 10)
-      render :map, :locals => {:msgtitle => ""}
-    else
-      flash[:error] = "user \"#{params[:id]}\" is unknown"
-      redirect_to root_path
-      return
+    respond_to do |format|
+      format.html do
+        if @user
+          count = params[:count]
+          @group = User.build_initial_locations([@user.username],count || 10)
+          render :map, :locals => {:msgtitle => ""}
+        else
+          flash[:error] = "user \"#{params[:id]}\" is unknown"
+          redirect_to root_path
+          return
+        end
+      end
+      format.json do
+        render :json => Location.last_for(@user.username, 1)
+      end
     end
   end
 
