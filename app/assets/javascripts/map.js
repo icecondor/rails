@@ -93,9 +93,10 @@ function update_position(msg) {
                                   msg.position.latitude]};
     var marker = map.makeMarker(position, user.username);
     marker.setIcon(map.makeIcon(user.marker_image_url, 12, 20))
+    marker.bindPopup(msg.username+" "+msg.provider+
+                    " <br/>"+Math.floor(msg.position.accuracy)+" meter accuracy")
     msg.marker = marker
     var speed = 0;
-
     if(user.locations.length > 0) {
       var last_location = user.locations[0]
 
@@ -113,7 +114,7 @@ function update_position(msg) {
       if(msg.position.accuracy) { accuracy = "acc "+
                                   Math.floor(last_location.position.accuracy)+"m"}
       var speed_str = Math.floor(speed)+" m/s"
-      last_location.marker.setPopupContent(last_location.provider+" "+accuracy+" "+speed_str)
+      last_location.marker.bindPopup(last_location.provider+" "+accuracy+" "+speed_str)
     }
 
     user.locations.unshift(msg);
