@@ -25,6 +25,7 @@ class User < CouchRest::Model::Base
     user.email = params[:email]
     user.username = params[:username]
     user.password = BCrypt::Password.create(params[:password])
+    user.oauth_token = params[:oauth_token]
     user.save
     user
   end
