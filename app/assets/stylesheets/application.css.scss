@@ -9,14 +9,12 @@
 #body .container {
   width: 95%;
 }
+
 .container > footer p {
   text-align: center; /* center align it with the container */
 }
 
 #body .navbar {
-  background: #2C2C2C;
-  border: 0;
-  vertical-align: middle;
 
   .navbar-brand {
     color: white;
@@ -26,18 +24,34 @@
   .navbar-nav {
     padding-top: 5px;
     margin-left: 1em;
+    font-size: 16px;
+  }
+
+  .navbar-brand {
+    padding-top: 5px;
+    font-size: 20px;
+    img {
+      width: 50px;
+    }
   }
 
   #gplay {
     margin-left: 1em;
     img {
-      margin-top: 6px
+      margin-top: 6px;
+      width: 120px;
     }
   }
 
   #signing_in form {
     margin-top: 10px;
+    input {
+      margin: 3px;
+      padding: 5px;
+      border-top: 5px;
+    }
   }
+
   #logged_in form {
     margin-top: 10px;
   }
