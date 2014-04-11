@@ -1,34 +1,42 @@
 nav.navbar.navbar-inverse role="navigation"
-  .navbar-header
-    a.navbar-brand href="/"
-      img src="/assets/icon-64x64.png"
-      | IceCondor
+  .container
+    .navbar-header
+      button.navbar-toggle type="button" data-toggle="collapse" data-target=".navbar-collapse"
+        span.sr-only Toggle Navigation
+        span.icon-bar
+        span.icon-bar
+        span.icon-bar
 
-  ul.nav.navbar-nav
-    li#livemap
-      a href="/" LiveMap
-    li#features
-      a href="/dashboard/features" Features
-    li#developers
-      a href="/dashboard/developers" Developers
+      a.navbar-brand href="/"
+        img src="/assets/icon-64x64.png"
+        | IceCondor
 
-  a href="https://play.google.com/store/apps/details?id=com.icecondor.nest" id="gplay"
-    img alt="Android app on Google Play" src="//developer.android.com/images/brand/en_app_rgb_wo_45.png"
+    .collapse.navbar-collapse
+      ul.nav.navbar-nav
+        li#livemap
+          a href="/" LiveMap
+        li#features
+          a href="/dashboard/features" Features
+        li#developers
+          a href="/dashboard/developers" Developers
 
-  span style="display:none" id="logged_in"
-    form id="logout" action="/session" method="delete" class="form-inline pull-right"
-      span class="username"
-      button class="btn" type="submit" Log out
+      a href="https://play.google.com/store/apps/details?id=com.icecondor.nest" id="gplay"
+        img alt="Android app on Google Play" src="//developer.android.com/images/brand/en_app_rgb_wo_45.png"
 
-  span style="display:none" id="signing_in"
-    form id="login" action="/session" method="post" class="form-inline pull-right"
-      input type="email" name="email" placeholder="e-mail address" id="login-email"
-      button class="btn" type="submit" Sign in
+      span style="display:none" id="logged_in"
+        form id="logout" action="/session" method="delete" class="form-inline pull-right"
+          span class="username"
+          button class="btn" type="submit" Log out
 
-  span style="display:none" id="signin_password"
-    form id="password" action="/session" method="post" class="form-inline pull-right"
-      input type="password" name="password" placeholder="password" id="login-password"
-      button class="btn" type="submit" Sign in
+      span style="display:none" id="signing_in"
+        form id="login" action="/session" method="post" class="form-inline pull-right"
+          input type="email" name="email" placeholder="e-mail address" id="login-email"
+          button class="btn" type="submit" Sign in
+
+      span style="display:none" id="signin_password"
+        form id="password" action="/session" method="post" class="form-inline pull-right"
+          input type="password" name="password" placeholder="password" id="login-password"
+          button class="btn" type="submit" Sign in
 
 
 div style="display:none"
