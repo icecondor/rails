@@ -1,7 +1,9 @@
   this.map_leaflet = {};
 
   map_leaflet.setup = function(center, zoom){
-    map_leaflet.map = L.map('map', {drawControl: true}).setView(this.pointToLatLng(center), zoom);
+    map_leaflet.map = L.map('map', {drawControl: true, zoomControl: false}).setView(this.pointToLatLng(center), zoom);
+    var zoom = L.control.zoom({position: 'topright'});
+    map_leaflet.map.addControl(zoom);
     map_leaflet.remove_draw();
 
     var osmUrl='//{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
