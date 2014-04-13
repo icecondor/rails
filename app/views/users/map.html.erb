@@ -1,1 +1,5 @@
-<%= render :partial => "dashboard/map", :locals => {:msgtitle => msgtitle} %> 
+<% content_for :header do %>
+  <title> <%=@user.username%> - Icecondor </title>
+<% end %>
+
+<%= render :partial => "dashboard/map", :locals => {:msgtitle => msgtitle} %>
